@@ -10,6 +10,7 @@ export const AudioPlayers = ({
     <div>
       {listOfSongs.map((song) => (
         <button
+          key={song.id}
           className="bg-blue-500 px-4 py-2 text-white"
           onClick={async () => {
             const songToPlay = new Audio(song.s3Url);
