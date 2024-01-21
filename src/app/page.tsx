@@ -1,6 +1,6 @@
 import { db } from "~/server/db";
-import { AudioPlayers } from "./_components/AudioPlayers";
 import { Upload } from "./_components/Upload";
+import { Test } from "./_components/Test";
 
 export default async function Home() {
   const songs = await db.query.songs.findMany();
@@ -8,7 +8,9 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-2 p-20">
       <Upload />
-      <AudioPlayers listOfSongs={songs} />
+      {songs.map((s) => {
+        return <Test song={s} />;
+      })}
     </div>
   );
 }
