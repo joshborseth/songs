@@ -32,7 +32,7 @@ export const Player = ({
   };
   return (
     <div className="w-full max-w-xl">
-      <button
+      {/* <button
         className="bg-black p-10"
         onClick={() => {
           //eslint-disable-next-line
@@ -62,7 +62,12 @@ export const Player = ({
             <span className="text-xl">{song.name}</span>
           </div>
         }
-      />
+      /> */}
+      with source element
+      <audio controls>
+        <source src={song.s3Url} type=".mp3" />
+      </audio>
+      without source element
       <audio src={song.s3Url} controls />
     </div>
   );
