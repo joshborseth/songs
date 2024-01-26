@@ -31,6 +31,15 @@ export const Player = ({
   };
   return (
     <div className="w-full max-w-xl">
+      <button
+        className="bg-red-500"
+        onClick={async () => {
+          const playableSong = new Audio(song.s3Url);
+          await playableSong.play();
+        }}
+      >
+        Debugger
+      </button>
       <AudioPlayer
         src={song.s3Url}
         autoPlay={false}
