@@ -33,7 +33,7 @@ export const Player = ({
   return (
     <div className="w-full max-w-xl">
       <button
-        className="bg-yellow-500 p-10"
+        className="bg-black p-10"
         onClick={() => {
           //eslint-disable-next-line
           const sound = new Howl({
@@ -48,8 +48,8 @@ export const Player = ({
       </button>
       <AudioPlayer
         src={song.s3Url}
-        autoPlay={false}
-        preload="none"
+        autoPlay={true}
+        preload="auto"
         autoPlayAfterSrcChange={false}
         hasDefaultKeyBindings={false}
         onClickNext={handleNext}
@@ -63,6 +63,7 @@ export const Player = ({
           </div>
         }
       />
+      <audio src={song.s3Url} controls />
     </div>
   );
 };
