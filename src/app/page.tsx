@@ -6,7 +6,7 @@ export default async function Home() {
   const songs = await db.query.songs.findMany();
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-between gap-2 p-10">
+    <div className="flex min-h-screen flex-col items-center justify-between gap-2 px-4 pt-10">
       <div className="flex flex-col items-center justify-center gap-6">
         <h1 className="text-customGray text-center text-3xl font-bold">
           Josh's Bad Music Service

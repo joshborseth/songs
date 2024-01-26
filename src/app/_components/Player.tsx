@@ -42,7 +42,7 @@ export const Player = ({
         showSkipControls
         showJumpControls={false}
         header={
-          <div className="text-customGray flex w-full justify-center">
+          <div className="text-customGray flex w-full justify-center text-center">
             <span className="text-xl">{song.name}</span>
           </div>
         }

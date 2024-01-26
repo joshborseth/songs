@@ -20,7 +20,7 @@ const config = {
 
     extend: {
       colors: {
-        customGray: "#333333",
+        customGray: "#666",
       },
       keyframes: {
         "accordion-down": {

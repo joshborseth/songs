@@ -6,7 +6,7 @@ export const Upload = () => {
   const uploadMutation = api.song.upload.useMutation();
   const [ytUrl, setYtUrl] = useState("");
   return (
-    <div className="flex gap-2">
+    <div className="flex w-full flex-col gap-2">
       <input
         type="text"
         onChange={(e) => setYtUrl(e.target.value)}
