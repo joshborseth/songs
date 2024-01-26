@@ -31,6 +31,7 @@ export const Player = ({
   };
   return (
     <div className="w-full max-w-xl">
+      this is with preload none
       <button
         className="bg-red-500"
         onClick={async () => {
@@ -43,7 +44,7 @@ export const Player = ({
       <AudioPlayer
         src={song.s3Url}
         autoPlay={false}
-        preload="auto"
+        preload="none"
         autoPlayAfterSrcChange={false}
         hasDefaultKeyBindings={false}
         onClickNext={handleNext}
