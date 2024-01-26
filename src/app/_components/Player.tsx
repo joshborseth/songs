@@ -4,6 +4,7 @@ import { useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { type songs } from "~/server/db/schema";
+import { Howl } from "howler";
 
 export const Player = ({
   listOfSongs,
@@ -31,15 +32,19 @@ export const Player = ({
   };
   return (
     <div className="w-full max-w-xl">
-      this is with preload none
       <button
-        className="bg-red-500"
-        onClick={async () => {
-          const playableSong = new Audio(song.s3Url);
-          await playableSong.play();
+        className="bg-yellow-500 p-10"
+        onClick={() => {
+          //eslint-disable-next-line
+          const sound = new Howl({
+            src: [song.s3Url],
+            html5: true,
+          });
+          //eslint-disable-next-line
+          sound.play();
         }}
       >
-        Debugger
+        Try out howl
       </button>
       <AudioPlayer
         src={song.s3Url}
@@ -51,6 +56,7 @@ export const Player = ({
         onClickPrevious={handlePrev}
         showSkipControls
         showJumpControls={false}
+        showDownloadProgress={true}
         header={
           <div className="text-customGray flex w-full justify-center text-center">
             <span className="text-xl">{song.name}</span>
