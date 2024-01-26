@@ -6,14 +6,14 @@ export const Upload = () => {
   const uploadMutation = api.song.upload.useMutation();
   const [ytUrl, setYtUrl] = useState("");
   return (
-    <div className="flex max-w-lg gap-2">
+    <div className="flex gap-2">
       <input
         type="text"
         onChange={(e) => setYtUrl(e.target.value)}
         className="border-2 p-4"
       />
       <button
-        className="bg-blue-700 px-6 py-2 text-white hover:bg-blue-800"
+        className="bg-customGray px-6 py-2 text-white hover:opacity-50"
         onClick={() => {
           if (!ytUrl.trim()) return;
           uploadMutation.mutate(
