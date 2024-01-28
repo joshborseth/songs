@@ -33,7 +33,7 @@ export const Player = ({
     <div className="w-full max-w-xl">
       <AudioPlayer
         src={song.s3Url}
-        autoPlay={true}
+        autoPlay={false}
         autoPlayAfterSrcChange={false}
         hasDefaultKeyBindings={false}
         onClickNext={handleNext}
