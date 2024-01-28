@@ -27,13 +27,16 @@ export const upload = publicProcedure
 
     const songInfo = await ytdl.getInfo(input.ytUrl);
 
-    const songName = `${randomUUID()}-${songInfo.videoDetails.title}.webm`;
+    console.log(songInfo.formats);
+
+    const songName = `${randomUUID()}-${songInfo.videoDetails.title}.wav`;
 
     const uploadedSong = await s3
       .upload({
         Bucket: env.S3_BUCKET,
         Key: songName,
         Body: audioReadableStream,
+        ContentType: "audio/wav",
       })
       .promise();
 
