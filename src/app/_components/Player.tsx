@@ -34,7 +34,6 @@ export const Player = ({
       <AudioPlayer
         src={song.s3Url}
         autoPlay={true}
-        preload="auto"
         autoPlayAfterSrcChange={false}
         hasDefaultKeyBindings={false}
         onClickNext={handleNext}
@@ -48,7 +47,7 @@ export const Player = ({
           </div>
         }
       />
-      <audio controls src={song.s3Url} preload="auto" />
+      <audio controls src={song.s3Url} />
     </div>
   );
 };
