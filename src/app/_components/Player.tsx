@@ -48,6 +48,8 @@ export const Player = ({
         }
       />
       <audio controls src={song.s3Url} />
+      static
+      <audio controls src="song.webm" />
     </div>
   );
 };
