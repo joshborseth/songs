@@ -47,11 +47,7 @@ export const Player = ({
           </div>
         }
       />
-      <audio controls>
-        <source src={song.s3Url} type="audio/wav" />
-        Your browser does not support the audio element.
-      </audio>
-      static
+      <audio src="song.mp3" controls autoPlay={false} />
     </div>
   );
 };
