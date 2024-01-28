@@ -20,17 +20,20 @@ export const upload = publicProcedure
 
     const s3 = new AWS.S3();
 
-    const song = ytdl(input.ytUrl, {
+    const audioReadableStream = ytdl(input.ytUrl, {
       filter: "audioonly",
-      quality: "highestaudio",
+      quality: "lowestaudio",
     });
 
     const songInfo = await ytdl.getInfo(input.ytUrl);
+
+    const songName = `${randomUUID()}-${songInfo.videoDetails.title}.webm`;
+
     const uploadedSong = await s3
       .upload({
         Bucket: env.S3_BUCKET,
-        Key: `${randomUUID()}.mp3`,
-        Body: song,
+        Key: songName,
+        Body: audioReadableStream,
       })
       .promise();
 

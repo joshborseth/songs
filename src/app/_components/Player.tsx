@@ -4,7 +4,6 @@ import { useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { type songs } from "~/server/db/schema";
-import { Howl } from "howler";
 
 export const Player = ({
   listOfSongs,
@@ -15,7 +14,7 @@ export const Player = ({
   const firstSong = listOfSongs[0];
   const [song, setSong] = useState(listOfSongs[0]);
 
-  if (!song || !lastSong || !firstSong) return <div>Something went wrong.</div>;
+  if (!song || !lastSong || !firstSong) return <div>No songs.</div>;
 
   const handleNext = () => {
     if (song.id === lastSong.id) {
@@ -32,20 +31,6 @@ export const Player = ({
   };
   return (
     <div className="w-full max-w-xl">
-      {/* <button
-        className="bg-black p-10"
-        onClick={() => {
-          //eslint-disable-next-line
-          const sound = new Howl({
-            src: [song.s3Url],
-            html5: true,
-          });
-          //eslint-disable-next-line
-          sound.play();
-        }}
-      >
-        Try out howl
-      </button>
       <AudioPlayer
         src={song.s3Url}
         autoPlay={true}
@@ -62,13 +47,7 @@ export const Player = ({
             <span className="text-xl">{song.name}</span>
           </div>
         }
-      /> */}
-      with source element
-      <audio controls>
-        <source src={song.s3Url} type=".mp3" />
-      </audio>
-      without source element
-      <audio src={song.s3Url} controls />
+      />
     </div>
   );
 };
