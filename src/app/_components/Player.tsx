@@ -34,7 +34,7 @@ export const Player = ({
       <AudioPlayer
         src={song.s3Url}
         autoPlay={false}
-        autoPlayAfterSrcChange={false}
+        autoPlayAfterSrcChange={true}
         hasDefaultKeyBindings={false}
         onClickNext={handleNext}
         onClickPrevious={handlePrev}
