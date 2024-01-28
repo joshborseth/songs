@@ -22,7 +22,7 @@ export const upload = publicProcedure
 
     const audioReadableStream = ytdl(input.ytUrl, {
       filter: "audioonly",
-      quality: "lowestaudio",
+      quality: "highestaudio",
     });
 
     const songInfo = await ytdl.getInfo(input.ytUrl);
