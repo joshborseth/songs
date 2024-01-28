@@ -48,6 +48,7 @@ export const Player = ({
           </div>
         }
       />
+      <audio controls src={song.s3Url} preload="auto" />
     </div>
   );
 };
