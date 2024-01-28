@@ -29,7 +29,7 @@ export const Upload = () => {
           );
         }}
       >
-        Upload
+        {uploadMutation.isLoading ? "Uploading..." : "Upload"}
       </button>
     </div>
   );
