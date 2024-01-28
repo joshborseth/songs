@@ -47,7 +47,6 @@ export const Player = ({
           </div>
         }
       />
-      <audio src="song.mp3" controls autoPlay={false} />
     </div>
   );
 };
