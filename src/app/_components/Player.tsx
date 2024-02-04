@@ -31,39 +31,32 @@ export const Player = ({
     setSong(listOfSongs[listOfSongs.indexOf(song) - 1]);
   };
   return (
-    <div className="flex w-full items-center justify-end">
-      <div className="h-full w-full rounded-tl-2xl bg-white">
-        <div className="flex items-end">
-          <div
-            style={{
-              height: "150px",
-              width: "300px",
-              position: "relative",
-            }}
-          >
-            <Image
-              alt={song.name}
-              objectFit="fill"
-              fill
-              priority
-              src={song?.imageUrl ?? ""}
-            />
-          </div>
-          <div className="w-full space-y-4 px-10 pb-4">
-            <span className="pl-3 text-2xl font-light">{song.name}</span>
-            <AudioPlayer
-              src={song.s3Url}
-              autoPlay={false}
-              autoPlayAfterSrcChange={true}
-              hasDefaultKeyBindings={false}
-              onClickNext={handleNext}
-              onClickPrevious={handlePrev}
-              showSkipControls
-              showJumpControls={false}
-              showDownloadProgress={true}
-              showFilledVolume={true}
-            />
-          </div>
+    <div className="flex w-full justify-end">
+      <div className="flex w-full items-end bg-white">
+        <div className="relative h-[150px] w-[300px]">
+          <Image
+            alt={song.name}
+            objectFit="fill"
+            fill
+            priority
+            src={song?.imageUrl ?? ""}
+          />
+        </div>
+        <div className="w-full max-w-4xl space-y-4 px-10 pb-4">
+          <span className="pl-3 text-2xl font-light">{song.name}</span>
+          <AudioPlayer
+            src={song.s3Url}
+            autoPlay={false}
+            autoPlayAfterSrcChange={true}
+            hasDefaultKeyBindings={true}
+            onClickNext={handleNext}
+            onClickPrevious={handlePrev}
+            //TODO: move to custom skip controls
+            showSkipControls={true}
+            showJumpControls={false}
+            showDownloadProgress={true}
+            showFilledVolume={false}
+          />
         </div>
       </div>
     </div>
