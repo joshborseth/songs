@@ -26,8 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable} h-[calc(100dvh)]`}>
         <TRPCReactProvider cookies={cookies().toString()}>
-          {/* <Sidebar>{children}</Sidebar> */}
-          {children}
+          <Sidebar>{children}</Sidebar>
         </TRPCReactProvider>
       </body>
     </html>

@@ -31,7 +31,7 @@ export const Player = ({
     setSong(listOfSongs[listOfSongs.indexOf(song) - 1]);
   };
   return (
-    <div className="flex w-full justify-end">
+    <div className="flex w-full justify-end border-t-4 border-gray-900">
       <div className="flex w-full items-end bg-white">
         <div className="relative h-[150px] w-[300px]">
           <Image
@@ -43,7 +43,7 @@ export const Player = ({
           />
         </div>
         <div className="w-full max-w-4xl space-y-4 px-10 pb-4">
-          <span className="pl-3 text-2xl font-light">{song.name}</span>
+          <span className="pl-3 text-2xl font-bold">{song.name}</span>
           <AudioPlayer
             src={song.s3Url}
             autoPlay={false}

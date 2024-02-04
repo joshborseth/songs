@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Button } from "~/components/ui/button";
 import { api } from "~/trpc/react";
 
 export const Upload = () => {
@@ -11,9 +12,9 @@ export const Upload = () => {
         type="text"
         onChange={(e) => setYtUrl(e.target.value)}
         className="border-2 p-4"
+        placeholder="Youtube URL"
       />
-      <button
-        className="bg-customGray px-6 py-2 text-white hover:opacity-50"
+      <Button
         onClick={() => {
           if (!ytUrl.trim()) return;
           uploadMutation.mutate(
@@ -30,7 +31,7 @@ export const Upload = () => {
         }}
       >
         {uploadMutation.isLoading ? "Uploading..." : "Upload"}
-      </button>
+      </Button>
     </div>
   );
 };

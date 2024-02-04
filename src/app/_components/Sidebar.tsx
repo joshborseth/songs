@@ -6,7 +6,9 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-full">
       <div
-        className={cn("w-full max-w-xs bg-white p-4 text-gray-900 shadow-2xl")}
+        className={cn(
+          "w-full max-w-xs border-r-4 border-gray-900 bg-white  p-4 text-gray-900 shadow-2xl",
+        )}
       >
         <div className="p-2 text-5xl font-extrabold">
           <p>Josh's Bad Music Service</p>

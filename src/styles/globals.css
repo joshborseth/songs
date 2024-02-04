@@ -4,5 +4,5 @@
 
 html,
 body {
-  @apply bg-indigo-100;
+  @apply bg-gray-50;
 }
