@@ -9,4 +9,5 @@ export const songs = mysqlTable("songs", {
     .notNull(),
   updatedAt: timestamp("updatedAt").onUpdateNow(),
   s3Url: varchar("s3_url", { length: 256 }).notNull(),
+  imageUrl: varchar("image_url", { length: 256 }),
 });

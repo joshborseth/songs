@@ -1,19 +1,12 @@
 import { db } from "~/server/db";
-import { Upload } from "./_components/Upload";
 import { Player } from "./_components/Player";
+import { Upload } from "./_components/Upload";
 
 export default async function Home() {
   const songs = await db.query.songs.findMany();
 
   return (
-    <div className="flex h-[calc(100dvh)] flex-col items-center justify-between gap-2 px-4 py-10">
-      <div className="flex flex-col items-center justify-center gap-6">
-        <h1 className="text-customGray text-center text-3xl font-bold">
-          Josh's Bad Music Service
-        </h1>
-        <Upload />
-      </div>
-
+    <div className="flex h-full w-full items-end">
       <Player listOfSongs={songs} />
     </div>
   );

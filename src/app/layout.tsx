@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { Sidebar } from "./_components/Sidebar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,8 +24,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+      <body className={`font-sans ${inter.variable} h-[calc(100dvh)]`}>
         <TRPCReactProvider cookies={cookies().toString()}>
+          {/* <Sidebar>{children}</Sidebar> */}
           {children}
         </TRPCReactProvider>
       </body>
