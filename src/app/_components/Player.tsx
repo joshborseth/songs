@@ -31,19 +31,19 @@ export const Player = ({
     setSong(listOfSongs[listOfSongs.indexOf(song) - 1]);
   };
   return (
-    <div className="flex w-full justify-end border-t-4 border-gray-900">
+    <div className="flex w-full justify-end">
       <div className="flex w-full items-end bg-white">
-        <div className="relative h-[150px] w-[300px]">
+        <div className="relative h-[125px] w-[250px]">
           <Image
             alt={song.name}
-            objectFit="fill"
+            className="object-fill"
             fill
             priority
             src={song?.imageUrl ?? ""}
           />
         </div>
-        <div className="w-full max-w-4xl space-y-4 px-10 pb-4">
-          <span className="pl-3 text-2xl font-bold">{song.name}</span>
+        <div className="w-full max-w-4xl space-y-2 px-10 pb-4">
+          <span className="pl-3 text-xl font-bold">{song.name}</span>
           <AudioPlayer
             src={song.s3Url}
             autoPlay={false}
@@ -51,7 +51,6 @@ export const Player = ({
             hasDefaultKeyBindings={true}
             onClickNext={handleNext}
             onClickPrevious={handlePrev}
-            //TODO: move to custom skip controls
             showSkipControls={true}
             showJumpControls={false}
             showDownloadProgress={true}
