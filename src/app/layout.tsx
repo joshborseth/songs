@@ -4,7 +4,9 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { Sidebar } from "./_components/Sidebar";
+import { Sidebar } from "./_components/Sidebar/Sidebar";
+import { Player } from "./_components/Player";
+import { db } from "~/server/db";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,7 +19,7 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;

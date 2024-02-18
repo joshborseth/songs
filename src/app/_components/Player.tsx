@@ -3,13 +3,14 @@
 import { useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "./styles.css";
-import { type songs } from "~/server/db/schema";
+
 import Image from "next/image";
+import { type RouterOutputs } from "~/trpc/shared";
 
 export const Player = ({
   listOfSongs,
 }: {
-  listOfSongs: (typeof songs.$inferSelect)[];
+  listOfSongs: RouterOutputs["song"]["list"];
 }) => {
   const lastSong = listOfSongs[listOfSongs.length - 1];
   const firstSong = listOfSongs[0];
