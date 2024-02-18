@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "./styles.css";
 
 import Image from "next/image";
 import { type RouterOutputs } from "~/trpc/shared";
+import { useCurrentSong } from "../stores/song";
 
 export const Player = ({
   listOfSongs,
@@ -14,22 +14,22 @@ export const Player = ({
 }) => {
   const lastSong = listOfSongs[listOfSongs.length - 1];
   const firstSong = listOfSongs[0];
-  const [song, setSong] = useState(listOfSongs[0]);
+  const { song, setSong } = useCurrentSong();
 
-  if (!song || !lastSong || !firstSong) return <div>No songs.</div>;
+  if (!song || !lastSong || !firstSong) return null;
 
   const handleNext = () => {
     if (song.id === lastSong.id) {
       return setSong(firstSong);
     }
-    setSong(listOfSongs[listOfSongs.indexOf(song) + 1]);
+    setSong(listOfSongs[listOfSongs.indexOf(song) + 1]!);
   };
 
   const handlePrev = () => {
     if (song.id === firstSong.id) {
       return setSong(lastSong);
     }
-    setSong(listOfSongs[listOfSongs.indexOf(song) - 1]);
+    setSong(listOfSongs[listOfSongs.indexOf(song) - 1]!);
   };
   return (
     <div className="flex w-full justify-end">
@@ -48,7 +48,7 @@ export const Player = ({
           <AudioPlayer
             src={song.s3Url}
             autoPlay={false}
-            autoPlayAfterSrcChange={true}
+            autoPlayAfterSrcChange={false}
             hasDefaultKeyBindings={true}
             onClickNext={handleNext}
             onClickPrevious={handlePrev}

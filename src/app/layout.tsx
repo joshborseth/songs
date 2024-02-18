@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { Player } from "./_components/Player";
 import { db } from "~/server/db";
+import { Toaster } from "~/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default async function RootLayout({
       <body className={`font-sans ${inter.variable} h-[calc(100dvh)]`}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <Sidebar>{children}</Sidebar>
+          <Toaster />
         </TRPCReactProvider>
       </body>
     </html>
