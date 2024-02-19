@@ -10,9 +10,12 @@ import { db } from "~/server/db";
 import { SongButton } from "./SongButton";
 import { Upload } from "../Upload";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { Plus } from "lucide-react";
+import { CreatePlaylist } from "../CreatePlaylist";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   const songs = await db.query.songs.findMany();
+  const playlists = await db.query.playlists.findMany();
   return (
     <div className="flex h-full">
       <div
@@ -41,12 +44,13 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
             </ul>
           </ScrollArea>
         </div>
-        <div>
+        <CreatePlaylist />
+        <div className="py-4">
           <h2 className="pl-3 text-lg font-bold">Playlists</h2>
           <ScrollArea className="h-56 py-3">
             <ul>
-              {songs.map((song) => (
-                <SongButton key={song.id} song={song} />
+              {playlists.map((p) => (
+                <div>{p.name}</div>
               ))}
             </ul>
           </ScrollArea>
