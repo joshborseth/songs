@@ -1,8 +1,8 @@
 import { cn } from "~/lib/utils";
-import { Button } from "~/components/ui/button";
-import Link from "next/link";
+// import { Button } from "~/components/ui/button";
+// import Link from "next/link";
 
-import { type ReactNode } from "react";
+// import { type ReactNode } from "react";
 
 import { Player } from "../Player";
 
@@ -10,7 +10,6 @@ import { db } from "~/server/db";
 import { SongButton } from "./SongButton";
 import { Upload } from "../Upload";
 import { ScrollArea } from "~/components/ui/scroll-area";
-import { Plus } from "lucide-react";
 import { CreatePlaylist } from "../CreatePlaylist";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
@@ -67,23 +66,23 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
   );
 }
 
-const NavLink = ({
-  href,
-  label,
-  icon,
-}: {
-  href: string;
-  label: string;
-  icon: ReactNode;
-}) => {
-  return (
-    <li>
-      <Link href={href}>
-        <Button variant="ghost" className="flex w-full justify-start gap-3">
-          {icon}
-          {label}
-        </Button>
-      </Link>
-    </li>
-  );
-};
+// const NavLink = ({
+//   href,
+//   label,
+//   icon,
+// }: {
+//   href: string;
+//   label: string;
+//   icon: ReactNode;
+// }) => {
+//   return (
+//     <li>
+//       <Link href={href}>
+//         <Button variant="ghost" className="flex w-full justify-start gap-3">
+//           {icon}
+//           {label}
+//         </Button>
+//       </Link>
+//     </li>
+//   );
+// };
