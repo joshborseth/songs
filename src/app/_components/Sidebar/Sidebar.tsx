@@ -35,7 +35,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
         </nav>
         <div className="py-4">
           <h2 className="pl-3 text-lg font-bold">Songs</h2>
-          <ScrollArea className="h-56 py-3">
+          <ScrollArea className="h-40 py-3">
             <ul>
               {songs.map((song) => (
                 <SongButton key={song.id} song={song} />
@@ -46,7 +46,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
         <CreatePlaylist />
         <div className="py-4">
           <h2 className="pl-3 text-lg font-bold">Playlists</h2>
-          <ScrollArea className="h-56 py-3">
+          <ScrollArea className="h-40 py-3">
             <ul>
               {playlists.map((p) => (
                 <div>{p.name}</div>
