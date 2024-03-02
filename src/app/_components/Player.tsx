@@ -6,7 +6,6 @@ import "./styles.css";
 import Image from "next/image";
 import { type RouterOutputs } from "~/trpc/shared";
 import { useCurrentSong } from "../stores/song";
-import { useRef } from "react";
 
 export const Player = ({
   listOfSongs,
@@ -33,8 +32,7 @@ export const Player = ({
     setSong(listOfSongs[listOfSongs.indexOf(song) - 1]!);
   };
 
-  const ref = useRef<HTMLAudioElement>();
-  ref.current.return(
+  return (
     <div className="flex w-full justify-end">
       <div className="flex w-full items-end bg-white">
         <div className="relative h-[125px] w-[250px]">
@@ -58,13 +56,12 @@ export const Player = ({
             showSkipControls={true}
             showJumpControls={false}
             onEnded={handleNext}
-            ref={ref}
             showDownloadProgress={true}
             showFilledVolume={true}
             showFilledProgress={true}
           />
         </div>
       </div>
-    </div>,
+    </div>
   );
 };
