@@ -21,20 +21,19 @@ export const upload = publicProcedure
     const s3 = new AWS.S3();
 
     const audioReadableStream = ytdl(input.ytUrl, {
-      filter: "audioonly",
-      quality: "highestaudio",
+      filter: (format) => format.audioCodec === "mp4a.40.2",
     });
 
     const songInfo = await ytdl.getInfo(input.ytUrl);
 
-    const songName = `${randomUUID()}-${songInfo.videoDetails.title}.mp3`;
+    const songName = `${randomUUID()}-${songInfo.videoDetails.title}.mp4`;
 
     const uploadedSong = await s3
       .upload({
         Bucket: env.S3_BUCKET,
         Key: songName,
         Body: audioReadableStream,
-        ContentType: "audio/mp3",
+        ContentType: "audio/mp4",
       })
       .promise();
 

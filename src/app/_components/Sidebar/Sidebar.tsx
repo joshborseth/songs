@@ -7,20 +7,18 @@ import { SongButton } from "./SongButton";
 import { Upload } from "../Upload";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { CreatePlaylist } from "../CreatePlaylist";
-import { PlaylistButton } from "./PlaylistButton";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
-import { List, Music, Music2 } from "lucide-react";
+import { List, Music2 } from "lucide-react";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   const songs = await db.query.songs.findMany();
-  const playlists = await db.query.playlists.findMany();
   return (
     <div className="flex h-full">
       <div
         className={cn(
-          "flex h-full w-64 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl",
+          "flex h-full w-72 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl",
         )}
       >
         <h1 className="pl-3 text-3xl font-bold">Music</h1>
