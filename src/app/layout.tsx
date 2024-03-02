@@ -26,7 +26,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-sans ${inter.variable} hidden h-[calc(100dvh)] overflow-hidden sm:block`}
+        className={`font-sans ${inter.variable} h-[calc(100dvh)] overflow-hidden`}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
           <Sidebar>{children}</Sidebar>
