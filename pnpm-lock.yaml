@@ -80,9 +80,6 @@ dependencies:
   react-h5-audio-player:
     specifier: ^3.9.1
     version: 3.9.1(react-dom@18.2.0)(react@18.2.0)
-  react-use-audio-player:
-    specifier: ^2.2.0
-    version: 2.2.0(react@18.2.0)
   server-only:
     specifier: ^0.0.1
     version: 0.0.1
@@ -3374,10 +3371,6 @@ packages:
     resolution: {integrity: sha512-2bsegYkkHO+h/9MGbn6KWcE45cHZgPANo5LXF7EvWdT0yT2EguSVO1nDgU5c8+ZOPwp2vMNa7YFsJhVcDR9Sdg==}
     dev: true
 
-  /howler@2.2.4:
-    resolution: {integrity: sha512-iARIBPgcQrwtEr+tALF+rapJ8qSc+Set2GJQl7xT1MQzWaVkFebdJhR3alVlSiUf5U7nAANKuj3aWpwerocD5w==}
-    dev: false
-
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -4093,15 +4086,6 @@ packages:
       invariant: 2.2.4
       react: 18.2.0
       tslib: 2.6.2
-    dev: false
-
-  /react-use-audio-player@2.2.0(react@18.2.0):
-    resolution: {integrity: sha512-IMM+WiZAq1KUvTwq0sAdRdjEzyG4jzz1tK/JtC/+LLt3z/uJk3AFRLL3pgbOgS/2SnfVzFKCxR7pnBsu6nUFvg==}
-    peerDependencies:
-      react: '>=16.8'
-    dependencies:
-      howler: 2.2.4
-      react: 18.2.0
     dev: false
 
   /react@18.2.0:
