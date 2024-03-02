@@ -120,6 +120,7 @@
   display: flex;
   align-items: center;
   justify-content: start;
+  width: 100%;
 }
 
 .rhap_additional-controls {
@@ -152,10 +153,9 @@
 
 .rhap_volume-controls {
   display: flex;
-  flex: 1 0 auto;
   justify-content: center;
   align-items: center;
-  display: none;
+  width: 100%;
 }
 
 .rhap_volume-button {
@@ -173,6 +173,7 @@
   flex: 0 1 150px;
   user-select: none;
   -webkit-user-select: none;
+  width: 100%;
 }
 
 .rhap_volume-bar-area {

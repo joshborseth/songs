@@ -47,15 +47,17 @@ export const Player = ({
           <span className="pl-3 text-xl font-bold">{song.name}</span>
           <AudioPlayer
             src={song.s3Url}
-            autoPlay={false}
-            autoPlayAfterSrcChange={false}
+            autoPlay={true}
+            autoPlayAfterSrcChange={true}
             hasDefaultKeyBindings={true}
             onClickNext={handleNext}
             onClickPrevious={handlePrev}
             showSkipControls={true}
             showJumpControls={false}
+            onEnded={handleNext}
             showDownloadProgress={true}
-            showFilledVolume={false}
+            showFilledVolume={true}
+            showFilledProgress={true}
           />
         </div>
       </div>
