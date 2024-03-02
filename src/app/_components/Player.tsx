@@ -2,10 +2,12 @@
 
 import AudioPlayer from "react-h5-audio-player";
 import "./styles.css";
+import { useGlobalAudioPlayer } from "react-use-audio-player";
 
 import Image from "next/image";
 import { type RouterOutputs } from "~/trpc/shared";
 import { useCurrentSong } from "../stores/song";
+import { Button } from "~/components/ui/button";
 
 export const Player = ({
   listOfSongs,
@@ -15,6 +17,8 @@ export const Player = ({
   const lastSong = listOfSongs[listOfSongs.length - 1];
   const firstSong = listOfSongs[0];
   const { song, setSong } = useCurrentSong();
+
+  const { load, togglePlayPause } = useGlobalAudioPlayer();
 
   if (!song || !lastSong || !firstSong) return null;
 
@@ -60,6 +64,17 @@ export const Player = ({
             showFilledVolume={true}
             showFilledProgress={true}
           />
+          <Button
+            onClick={() => {
+              load(song.s3Url, {
+                html5: true,
+                format: "aac",
+              });
+              togglePlayPause();
+            }}
+          >
+            Load
+          </Button>
         </div>
       </div>
     </div>
