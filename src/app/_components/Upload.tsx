@@ -1,5 +1,5 @@
 "use client";
-import { revalidatePath } from "next/cache";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
@@ -17,7 +17,8 @@ export const Upload = () => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        if (!z.string().url().safeParse(ytUrl).success) {
+        const parsedData = z.string().url().safeParse(ytUrl);
+        if (!parsedData.success) {
           toast({
             title: "Invalid URL",
             description: "Please enter a valid URL",
@@ -27,7 +28,7 @@ export const Upload = () => {
         }
         uploadMutation.mutate(
           {
-            ytUrl: ytUrl,
+            ytUrl: parsedData.data,
           },
           {
             onSuccess: () => {
@@ -47,6 +48,7 @@ export const Upload = () => {
         type="text"
         onChange={(e) => setYtUrl(e.target.value)}
         placeholder="Youtube URL"
+        value={ytUrl}
       />
       <Button type="submit" disabled={!Boolean(ytUrl)}>
         {uploadMutation.isLoading ? "Uploading..." : "Upload"}

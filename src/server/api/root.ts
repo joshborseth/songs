@@ -1,3 +1,4 @@
+import { playlistRouter } from "./routers/playlist";
 import { songRouter } from "./routers/song";
 import { createTRPCRouter } from "~/server/api/trpc";
 
@@ -8,6 +9,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   song: songRouter,
+  playlist: playlistRouter,
 });
 
 // export type definition of API

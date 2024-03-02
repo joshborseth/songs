@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "../../trpc";
-import { list } from "./procedures";
+import { list, create } from "./procedures";
 
 export const playlistRouter = createTRPCRouter({
   list,
+  create,
 });

@@ -14,7 +14,7 @@ export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
       className="flex w-full justify-start gap-3"
     >
       <Music size={18} />
-      {song.name.length > 20 ? `${song.name.slice(0, 20)}...` : song.name}
+      {song.name.length > 20 ? `${song.name.slice(0, 18)}...` : song.name}
     </Button>
   );
 };
