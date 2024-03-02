@@ -18,7 +18,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
     <div className="flex h-full">
       <div
         className={cn(
-          "flex h-full w-72 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl",
+          "hidden h-full w-72 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl md:flex",
         )}
       >
         <h1 className="pl-3 text-3xl font-bold">Music</h1>
@@ -51,6 +51,13 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex h-full w-full flex-col items-start justify-end">
         {children}
+        <div className="flex flex-col md:hidden">
+          <ul>
+            {songs.map((song) => (
+              <SongButton key={song.id} song={song} />
+            ))}
+          </ul>
+        </div>
         <Player listOfSongs={songs} />
       </div>
     </div>
