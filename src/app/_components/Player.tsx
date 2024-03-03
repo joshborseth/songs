@@ -34,8 +34,8 @@ export const Player = ({
 
   return (
     <div className="flex w-full justify-end">
-      <div className="flex w-full items-end bg-white">
-        <div className="relative h-[125px] w-[250px]">
+      <div className="flex w-full flex-col items-end bg-white py-4 md:flex-row">
+        {/* <div className="relative h-[125px] w-[250px]">
           <Image
             alt={song.name}
             className="object-fill"
@@ -43,9 +43,11 @@ export const Player = ({
             priority
             src={song?.imageUrl ?? ""}
           />
-        </div>
-        <div className="w-full max-w-4xl space-y-2 px-10 pb-4">
-          <span className="pl-3 text-xl font-bold">{song.name}</span>
+        </div> */}
+        <div className="flex w-full max-w-4xl flex-col gap-2 space-y-2 pb-4 md:px-10">
+          <span className="px-6 pl-0 text-center text-xl font-bold md:px-0 md:pl-3 md:text-left">
+            {song.name}
+          </span>
           <AudioPlayer
             src={song.s3Url}
             autoPlay={true}
