@@ -18,7 +18,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
     <div className="flex h-full">
       <div
         className={cn(
-          "hidden h-full w-72 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl md:flex",
+          "hidden h-full w-72 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl xl:flex",
         )}
       >
         <h1 className="pl-3 text-3xl font-bold">Music</h1>
