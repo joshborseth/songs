@@ -24,10 +24,11 @@
 
 .rhap_main {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
   align-items: center;
   width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .rhap_horizontal {
@@ -46,7 +47,8 @@
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 35vw;
+  max-width: 40rem;
+  padding: 0 20px;
 }
 
 .rhap_progress-container {
@@ -67,7 +69,7 @@
 .rhap_time {
   color: rgb(31 41 55);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -106,13 +108,13 @@
   box-sizing: border-box;
   position: absolute;
   z-index: 3;
-  width: 20px;
-  height: 20px;
-  margin-left: -10px;
-  top: -8px;
   background: white;
   border: solid 1px rgb(31 41 55);
   border-radius: 50px;
+  width: 15px;
+  height: 15px;
+  margin-left: -5px;
+  top: -5px;
 }
 
 .rhap_controls-section {
@@ -121,7 +123,7 @@
   justify-content: start;
   width: 100%;
   max-width: 20rem;
-  gap: 1rem;
+  flex-direction: column;
 }
 
 .rhap_additional-controls {
@@ -141,15 +143,9 @@
 .rhap_main-controls-button {
   margin: 0 3px;
   color: rgb(31 41 55);
-  font-size: 35px;
-  width: 35px;
-  height: 35px;
-}
-
-.rhap_play-pause-button {
-  font-size: 50px;
-  width: 50px;
-  height: 50px;
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .rhap_volume-controls {
@@ -157,7 +153,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 7.5rem;
+  max-width: 15rem;
 }
 
 .rhap_volume-button {
@@ -167,6 +163,11 @@
   height: 26px;
   color: rgb(31 41 55);
   margin-right: 6px;
+}
+.rhap_play-pause-button {
+  font-size: 45px;
+  width: 45px;
+  height: 45px;
 }
 
 .rhap_volume-container {
@@ -241,44 +242,4 @@
 }
 .rhap_button-clear:focus:not(:focus-visible) {
   outline: 0;
-}
-@media (max-width: 1280px) {
-  .rhap_main {
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .rhap_progress-section {
-    max-width: 40rem;
-    padding: 0 20px;
-  }
-  .rhap_controls-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .rhap_progress-indicator {
-    width: 15px;
-    height: 15px;
-    margin-left: -5px;
-    top: -5px;
-  }
-  .rhap_time {
-    font-size: 14px;
-  }
-  .rhap_main-controls-button {
-    font-size: 30px;
-    width: 30px;
-    height: 30px;
-  }
-
-  .rhap_play-pause-button {
-    font-size: 45px;
-    width: 45px;
-    height: 45px;
-  }
-
-  .rhap_volume-controls {
-    max-width: 15rem;
-  }
 }

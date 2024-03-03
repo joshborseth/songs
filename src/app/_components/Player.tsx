@@ -5,7 +5,6 @@ import "./styles.css";
 
 import { type RouterOutputs } from "~/trpc/shared";
 import { useCurrentSong } from "../stores/song";
-import Image from "next/image";
 
 export const Player = ({
   listOfSongs,
@@ -34,21 +33,11 @@ export const Player = ({
 
   return (
     <div className="flex w-full justify-end">
-      <div className="flex w-full flex-col items-center bg-white pt-4 xl:flex-row xl:py-0">
-        {song.imageUrl && (
-          <Image
-            alt={song.name}
-            src={song.imageUrl}
-            className="hidden xl:block"
-            width={300}
-            height={200}
-          />
-        )}
-        <div className="flex w-full max-w-4xl flex-col gap-2 space-y-2 xl:px-4">
-          <span className="mx-auto w-[90%] pl-0 text-center text-lg font-bold xl:mx-0 xl:w-auto xl:px-0 xl:pl-3 xl:text-left xl:text-xl">
+      <div className="flex w-full flex-col items-center bg-white py-4">
+        <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-2 space-y-2">
+          <span className="mx-auto w-[90%] text-center text-lg font-bold">
             {song.name}
           </span>
-
           <AudioPlayer
             src={song.s3Url}
             autoPlay={true}

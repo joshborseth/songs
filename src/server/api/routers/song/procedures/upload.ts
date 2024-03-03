@@ -40,6 +40,5 @@ export const upload = publicProcedure
     await ctx.db.insert(songs).values({
       name: songInfo.videoDetails.title,
       s3Url: uploadedSong.Location,
-      imageUrl: songInfo.videoDetails.thumbnails?.[0]?.url,
     });
   });
