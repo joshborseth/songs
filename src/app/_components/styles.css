@@ -26,7 +26,6 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
-  gap: 2rem;
   align-items: center;
   width: 100%;
 }
@@ -121,6 +120,8 @@
   align-items: center;
   justify-content: start;
   width: 100%;
+  max-width: 20rem;
+  gap: 1rem;
 }
 
 .rhap_additional-controls {
@@ -156,6 +157,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 7.5rem;
 }
 
 .rhap_volume-button {
@@ -170,10 +172,9 @@
 .rhap_volume-container {
   display: flex;
   align-items: center;
-  flex: 0 1 150px;
+  width: 100%;
   user-select: none;
   -webkit-user-select: none;
-  width: 100%;
 }
 
 .rhap_volume-bar-area {
@@ -240,4 +241,44 @@
 }
 .rhap_button-clear:focus:not(:focus-visible) {
   outline: 0;
+}
+@media (max-width: 1280px) {
+  .rhap_main {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .rhap_progress-section {
+    max-width: 40rem;
+    padding: 0 20px;
+  }
+  .rhap_controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .rhap_progress-indicator {
+    width: 15px;
+    height: 15px;
+    margin-left: -5px;
+    top: -5px;
+  }
+  .rhap_time {
+    font-size: 14px;
+  }
+  .rhap_main-controls-button {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .rhap_play-pause-button {
+    font-size: 45px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .rhap_volume-controls {
+    max-width: 15rem;
+  }
 }

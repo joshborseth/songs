@@ -3,9 +3,9 @@
 import AudioPlayer from "react-h5-audio-player";
 import "./styles.css";
 
-import Image from "next/image";
 import { type RouterOutputs } from "~/trpc/shared";
 import { useCurrentSong } from "../stores/song";
+import Image from "next/image";
 
 export const Player = ({
   listOfSongs,
@@ -34,18 +34,21 @@ export const Player = ({
 
   return (
     <div className="flex w-full justify-end">
-      <div className="flex w-full items-end bg-white">
-        <div className="relative h-[125px] w-[250px]">
+      <div className="flex w-full flex-col items-center bg-white pt-4 xl:flex-row xl:py-0">
+        {song.imageUrl && (
           <Image
             alt={song.name}
-            className="object-fill"
-            fill
-            priority
-            src={song?.imageUrl ?? ""}
+            src={song.imageUrl}
+            className="hidden xl:block"
+            width={300}
+            height={200}
           />
-        </div>
-        <div className="w-full max-w-4xl space-y-2 px-10 pb-4">
-          <span className="pl-3 text-xl font-bold">{song.name}</span>
+        )}
+        <div className="flex w-full max-w-4xl flex-col gap-2 space-y-2 xl:px-4">
+          <span className="mx-auto w-[90%] pl-0 text-center text-lg font-bold xl:mx-0 xl:w-auto xl:px-0 xl:pl-3 xl:text-left xl:text-xl">
+            {song.name}
+          </span>
+
           <AudioPlayer
             src={song.s3Url}
             autoPlay={true}
