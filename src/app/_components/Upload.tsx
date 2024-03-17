@@ -39,6 +39,13 @@ export const Upload = () => {
               setYtUrl("");
               router.refresh();
             },
+            onError: (err) => {
+              toast({
+                title: "Error",
+                description: err.message,
+                variant: "destructive",
+              });
+            },
           },
         );
       }}

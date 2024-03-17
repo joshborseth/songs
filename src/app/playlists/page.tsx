@@ -1,5 +1,6 @@
 import { db } from "~/server/db";
 import { Paper } from "../_components/Paper";
+import { DateTime } from "luxon";
 import {
   Table,
   TableBody,
@@ -36,8 +37,16 @@ export default async function Page() {
               <TableRow key={p.id}>
                 <TableCell className="font-medium">{p.name}</TableCell>
                 <TableCell>{p.playlistSongs.length}</TableCell>
-                <TableCell>{p?.createdAt ?? "N/A"}</TableCell>
-                <TableCell>{p?.updatedAt ?? "N/A"}</TableCell>
+                <TableCell>
+                  {p?.createdAt
+                    ? DateTime.fromSQL(p.createdAt).toFormat("LLL dd yyyy")
+                    : "N/A"}
+                </TableCell>
+                <TableCell>
+                  {p?.updatedAt
+                    ? DateTime.fromSQL(p.updatedAt).toFormat("LLL dd yyyy")
+                    : "N/A"}
+                </TableCell>
                 <TableCell>
                   <Link href={`/playlists/${p.id}`}>
                     <EditIcon size={18} />
