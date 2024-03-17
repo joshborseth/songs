@@ -36,12 +36,8 @@ export default async function Page() {
               <TableRow key={p.id}>
                 <TableCell className="font-medium">{p.name}</TableCell>
                 <TableCell>{p.playlistSongs.length}</TableCell>
-                <TableCell>
-                  {p?.createdAt.toLocaleDateString() ?? "N/A"}
-                </TableCell>
-                <TableCell>
-                  {p?.updatedAt?.toLocaleDateString() ?? "N/A"}
-                </TableCell>
+                <TableCell>{p?.createdAt ?? "N/A"}</TableCell>
+                <TableCell>{p?.updatedAt ?? "N/A"}</TableCell>
                 <TableCell>
                   <Link href={`/playlists/${p.id}`}>
                     <EditIcon size={18} />

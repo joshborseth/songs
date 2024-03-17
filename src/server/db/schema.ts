@@ -1,33 +1,33 @@
 import { relations, sql } from "drizzle-orm";
-import { int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { text, integer, sqliteTable } from "drizzle-orm/sqlite-core";
 
-export const songs = mysqlTable("songs", {
-  id: int("id").primaryKey().autoincrement(),
-  name: varchar("name", { length: 256 }).notNull(),
-  createdAt: timestamp("createdAt")
+export const songs = sqliteTable("songs", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  name: text("name", { length: 256 }).notNull(),
+  createdAt: text("createdAt")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  updatedAt: timestamp("updatedAt").onUpdateNow(),
-  s3Url: varchar("s3Url", { length: 256 }).notNull(),
+  updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`),
+  s3Url: text("s3Url", { length: 256 }).notNull(),
 });
 
-export const playlists = mysqlTable("playlists", {
-  id: int("id").primaryKey().autoincrement(),
-  name: varchar("name", { length: 256 }).notNull(),
-  createdAt: timestamp("createdAt")
+export const playlists = sqliteTable("playlists", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  name: text("name", { length: 256 }).notNull(),
+  createdAt: text("createdAt")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  updatedAt: timestamp("updatedAt").onUpdateNow(),
+  updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`),
 });
 
-export const playlistSongs = mysqlTable("playlistSongs", {
-  id: int("id").primaryKey().autoincrement(),
-  playlistId: int("playlistId").notNull(),
-  songId: int("songId").notNull(),
-  createdAt: timestamp("createdAt")
+export const playlistSongs = sqliteTable("playlistSongs", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  playlistId: integer("playlistId").notNull(),
+  songId: integer("songId").notNull(),
+  createdAt: text("createdAt")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
-  updatedAt: timestamp("updatedAt").onUpdateNow(),
+  updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`),
 });
 
 export const playlistRelations = relations(playlists, ({ many }) => ({

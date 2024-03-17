@@ -14,6 +14,7 @@ export const env = createEnv({
         (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
         "You forgot to change the default URL",
       ),
+    DATABASE_AUTH_TOKEN: z.string(),
     AWS_ACCESS_KEY_ID: z.string(),
     AWS_SECRET_ACCESS_KEY: z.string(),
     S3_REGION: z.string(),
@@ -43,6 +44,7 @@ export const env = createEnv({
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
     S3_REGION: process.env.S3_REGION,
     S3_BUCKET: process.env.S3_BUCKET,
+    DATABASE_AUTH_TOKEN: process.env.DATABASE_AUTH_TOKEN,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
