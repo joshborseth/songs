@@ -1,5 +1,4 @@
 import { db } from "~/server/db";
-import { Paper } from "../_components/Paper";
 import { DateTime } from "luxon";
 import {
   Table,
@@ -12,6 +11,7 @@ import {
 import { EditIcon } from "lucide-react";
 
 import Link from "next/link";
+import { PageWrapper } from "../_components/PageWrapper";
 
 export default async function Page() {
   const playlists = await db.query.playlists.findMany({
@@ -21,7 +21,7 @@ export default async function Page() {
   });
   return (
     <div className="h-full w-full">
-      <Paper>
+      <PageWrapper pageTitle="Playlists">
         <Table>
           <TableHeader>
             <TableRow>
@@ -56,7 +56,7 @@ export default async function Page() {
             ))}
           </TableBody>
         </Table>
-      </Paper>
+      </PageWrapper>
     </div>
   );
 }

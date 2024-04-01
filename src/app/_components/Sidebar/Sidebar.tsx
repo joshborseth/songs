@@ -13,7 +13,9 @@ import { Button } from "~/components/ui/button";
 import { List, Music2 } from "lucide-react";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
-  const songs = await db.query.songs.findMany();
+  const songs = await db.query.songs.findMany({
+    limit: 20,
+  });
   return (
     <div className="flex h-full">
       <div
@@ -22,15 +24,15 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
         )}
       >
         <h1 className="pl-3 text-3xl font-bold">Music</h1>
-        <nav className="my-4 border-y-2">
+        <nav className="my-4 border-y-[1px]">
           <ul className="py-2">
             <NavLink
               href="/playlists"
               icon={<List size={18} />}
               label="Playlists"
             />
-            {/* TODO: update link */}
-            <NavLink href="/" icon={<Music2 size={18} />} label="Songs" />
+
+            <NavLink href="/songs" icon={<Music2 size={18} />} label="Songs" />
           </ul>
         </nav>
         <div className="h-1/2">

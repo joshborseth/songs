@@ -8,9 +8,9 @@ import {
   TableRow,
 } from "~/components/ui/table";
 
-import { Paper } from "~/app/_components/Paper";
 import { eq } from "drizzle-orm";
 import { playlists } from "~/server/db/schema";
+import { PageWrapper } from "~/app/_components/PageWrapper";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const playlistSongsQuery = await db.query.playlists.findFirst({
@@ -30,18 +30,21 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="h-full w-full">
-      <Paper>
-        <Table>
-          <TableHead>{playlistSongsQuery.name}</TableHead>
-          <TableBody>
-            {songs.map((s) => (
-              <TableRow key={s.id}>
-                <TableCell className="font-medium">{s.name}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
+      <PageWrapper pageTitle={playlistSongsQuery.name}>
+        {songs.length ? (
+          <Table>
+            <TableBody>
+              {songs.map((s) => (
+                <TableRow key={s.id}>
+                  <TableCell className="font-medium">{s.name}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p className="text-center">No songs in this playlist.</p>
+        )}
+      </PageWrapper>
     </div>
   );
 }
