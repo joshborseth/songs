@@ -1,12 +1,6 @@
 import { db } from "~/server/db";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "~/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "~/components/ui/table";
 
 import { eq } from "drizzle-orm";
 import { playlists } from "~/server/db/schema";
