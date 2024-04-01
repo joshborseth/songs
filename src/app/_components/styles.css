@@ -217,7 +217,7 @@
   top: -4px;
   background: white;
   border: solid 1px rgb(31 41 55);
-  z-index: 9999999;
+  z-index: 3;
   opacity: 1;
   border-radius: 50px;
   cursor: pointer;
