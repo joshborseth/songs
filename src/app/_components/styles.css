@@ -120,10 +120,19 @@
 .rhap_controls-section {
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-around;
   width: 100%;
   max-width: 20rem;
-  flex-direction: column;
+  gap: 2rem;
+  flex-direction: row;
+}
+
+@media (max-width: 600px) {
+  .rhap_controls-section {
+    flex-direction: column;
+    max-width: 100%;
+    gap: 0;
+  }
 }
 
 .rhap_additional-controls {

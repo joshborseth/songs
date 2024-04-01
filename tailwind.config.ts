@@ -19,9 +19,6 @@ const config = {
     },
 
     extend: {
-      colors: {
-        customGray: "#666",
-      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
