@@ -1,16 +1,15 @@
 import { cn } from "~/lib/utils";
 
 import { Player } from "../Player";
-
 import { db } from "~/server/db";
 import { SongButton } from "./SongButton";
-import { Upload } from "../Upload";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { CreatePlaylist } from "../CreatePlaylist";
 import { type ReactNode } from "react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { List, Music2 } from "lucide-react";
+import { UploadSong } from "../UploadSong";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   const songs = await db.query.songs.findMany({
@@ -35,21 +34,20 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
             <NavLink href="/songs" icon={<Music2 size={18} />} label="Songs" />
           </ul>
         </nav>
-        <div className="h-1/2">
+        <div className="h-1/3">
           <ScrollArea className="h-full py-3">
             <ul>
               {songs.map((song) => (
-                <SongButton key={song.id} song={song} />
+                <div key={song.id}>
+                  <SongButton key={song.id} song={song} />
+                </div>
               ))}
             </ul>
           </ScrollArea>
         </div>
 
         <CreatePlaylist />
-
-        <div className="flex h-full items-end">
-          <Upload />
-        </div>
+        <UploadSong />
       </div>
       <div className="flex h-full w-full flex-col items-start justify-end">
         {children}

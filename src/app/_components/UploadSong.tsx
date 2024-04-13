@@ -2,6 +2,7 @@
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -14,11 +15,13 @@ import {
 } from "~/components/ui/dialog";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { useToast } from "~/components/ui/use-toast";
 import { api } from "~/trpc/react";
 
-export const CreatePlaylist = () => {
-  const [name, setName] = useState("");
-  const createPlaylist = api.playlist.create.useMutation();
+export const UploadSong = () => {
+  const uploadMutation = api.song.upload.useMutation();
+  const [ytUrl, setYtUrl] = useState("");
+  const { toast } = useToast();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   return (
@@ -27,7 +30,7 @@ export const CreatePlaylist = () => {
         <Button className="w-full">
           <div className="-ml-3 flex items-center gap-2">
             <Plus size={24} />
-            <span>New Playlist</span>
+            <span>Upload a Song</span>
           </div>
         </Button>
       </DialogTrigger>
@@ -35,13 +38,34 @@ export const CreatePlaylist = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            createPlaylist.mutate(
-              { name },
+            const parsedData = z.string().url().safeParse(ytUrl);
+            if (!parsedData.success) {
+              toast({
+                title: "Invalid URL",
+                description: "Please enter a valid URL",
+                variant: "destructive",
+              });
+              return;
+            }
+            uploadMutation.mutate(
+              {
+                ytUrl: parsedData.data,
+              },
               {
                 onSuccess: () => {
+                  toast({
+                    title: "Success",
+                    description: "Song has been uploaded",
+                  });
+                  setYtUrl("");
                   router.refresh();
-                  setName("");
-                  setOpen(false);
+                },
+                onError: (err) => {
+                  toast({
+                    title: "Error",
+                    description: err.message,
+                    variant: "destructive",
+                  });
                 },
               },
             );
@@ -49,10 +73,11 @@ export const CreatePlaylist = () => {
           className="flex h-full flex-col gap-4"
         >
           <DialogHeader>
-            <DialogTitle>Create a Playlist</DialogTitle>
+            <DialogTitle>Upload a Song</DialogTitle>
             <DialogDescription>
-              Create a new playlist to organize your music. Enter your new
-              playlist name below to get started.
+              Copy and Paste the Youtube URL of the song you want to upload. We
+              will then automatically download the song and add it to your
+              library.
             </DialogDescription>
           </DialogHeader>
           <Label className="sr-only" htmlFor="name">
@@ -60,14 +85,14 @@ export const CreatePlaylist = () => {
           </Label>
           <Input
             id="name"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
+            onChange={(e) => setYtUrl(e.target.value)}
+            value={ytUrl}
             required
-            placeholder="Playlist Name"
+            placeholder="Youtube URL"
           />
           <DialogFooter className="sm:justify-start">
             <Button type="submit">
-              {createPlaylist.isLoading ? "Loading..." : "Create"}
+              {uploadMutation.isLoading ? "Loading..." : "Upload"}
             </Button>
           </DialogFooter>
         </form>

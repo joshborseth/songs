@@ -9,7 +9,7 @@ export const PageWrapper = ({
   pageTitle: string;
 }) => {
   return (
-    <div className="flex w-full flex-col gap-4 p-4 lg:p-10">
+    <div className="flex h-full w-full flex-col gap-4 p-4 lg:p-10">
       <h1 className="text-2xl font-bold">{pageTitle}</h1>
       <Paper>{children}</Paper>
     </div>
