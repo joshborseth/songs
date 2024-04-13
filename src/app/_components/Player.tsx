@@ -33,7 +33,7 @@ export const Player = ({
 
   return (
     <div className="flex w-full justify-end">
-      <div className="flex h-40 w-full flex-col items-center bg-white py-4">
+      <div className="flex w-full flex-col items-center bg-white py-4">
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-2 space-y-2">
           <span className="mx-auto w-[90%] text-center text-lg font-bold">
             {song.name}
