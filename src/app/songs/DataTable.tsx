@@ -20,8 +20,8 @@ import { columns } from "./columns";
 import { api } from "~/trpc/react";
 import React, { useEffect, useMemo, useRef } from "react";
 import { Loader2 } from "lucide-react";
-// TODO: probs shouldnt render a table at all with no data
-//maybe just the spinner
+import { useSongs } from "../stores/song";
+
 export function DataTable() {
   const {
     data: songsRaw,
@@ -68,6 +68,16 @@ export function DataTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  const { setSong } = useSongs();
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full justify-center">
+        <Loader2 size={32} className="animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-md">
       <Table>
@@ -98,6 +108,8 @@ export function DataTable() {
                     ref={ref}
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    onClick={() => setSong(row.original)}
+                    className="cursor-pointer"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
@@ -112,6 +124,8 @@ export function DataTable() {
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    onClick={() => setSong(row.original)}
+                    className="cursor-pointer"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
@@ -128,13 +142,7 @@ export function DataTable() {
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                {isLoading ? (
-                  <div className="flex w-full justify-center">
-                    <Loader2 size={42} className="animate-spin" />
-                  </div>
-                ) : (
-                  "No results."
-                )}
+                No results.
               </TableCell>
             </TableRow>
           )}

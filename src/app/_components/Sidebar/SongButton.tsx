@@ -1,12 +1,12 @@
 "use client";
 
-import { AudioLines, Music } from "lucide-react";
-import { useCurrentSong } from "~/app/stores/song";
+import { useSongs } from "~/app/stores/song";
 import { Button } from "~/components/ui/button";
 import { type songs } from "~/server/db/schema";
+import { SongName } from "../SongName";
 
 export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
-  const songState = useCurrentSong();
+  const songState = useSongs();
 
   return (
     <Button
@@ -14,13 +14,7 @@ export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
       variant="ghost"
       className="flex w-full justify-start gap-3"
     >
-      {songState.song?.id === song.id ? (
-        <AudioLines size={18} className="animate-pulse" />
-      ) : (
-        <Music size={18} />
-      )}
-
-      {song.name.length > 20 ? `${song.name.slice(0, 18)}...` : song.name}
+      <SongName song={song} />
     </Button>
   );
 };

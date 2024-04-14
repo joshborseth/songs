@@ -3,32 +3,31 @@
 import AudioPlayer from "react-h5-audio-player";
 import "./styles.css";
 
-import { useCurrentSong } from "../stores/song";
-import { type songs } from "~/server/db/schema";
+import { useSongs } from "../stores/song";
 
-export const Player = ({
-  listOfSongs,
-}: {
-  listOfSongs: (typeof songs.$inferSelect)[];
-}) => {
-  const lastSong = listOfSongs[listOfSongs.length - 1];
-  const firstSong = listOfSongs[0];
-  const { song, setSong } = useCurrentSong();
+export const Player = () => {
+  const { song, setSong, queue } = useSongs();
 
-  if (!song || !lastSong || !firstSong) return null;
+  if (!song || !queue) return null;
+
+  const firstSong = queue[0];
+  const lastSong = queue[queue.length - 1];
+
+  if (!firstSong || !lastSong) return null;
 
   const handleNext = () => {
     if (song.id === lastSong.id) {
       return setSong(firstSong);
     }
-    setSong(listOfSongs[listOfSongs.indexOf(song) + 1]!);
+
+    setSong(queue[queue.indexOf(song) + 1]!);
   };
 
   const handlePrev = () => {
     if (song.id === firstSong.id) {
       return setSong(lastSong);
     }
-    setSong(listOfSongs[listOfSongs.indexOf(song) - 1]!);
+    setSong(queue[queue.indexOf(song) - 1]!);
   };
 
   return (

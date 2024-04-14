@@ -1,20 +1,14 @@
 import { cn } from "~/lib/utils";
-
 import { Player } from "../Player";
-import { db } from "~/server/db";
-import { SongButton } from "./SongButton";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { CreatePlaylist } from "../CreatePlaylist";
 import { type ReactNode } from "react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
-import { List, Music2 } from "lucide-react";
+import { List, ListMusic } from "lucide-react";
 import { UploadSong } from "../UploadSong";
+import { Queue } from "./Queue";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
-  const songs = await db.query.songs.findMany({
-    limit: 20,
-  });
   return (
     <div className="flex h-full">
       <div
@@ -31,27 +25,21 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
               label="Playlists"
             />
 
-            <NavLink href="/songs" icon={<Music2 size={18} />} label="Songs" />
+            <NavLink
+              href="/songs"
+              icon={<ListMusic size={18} />}
+              label="Songs"
+            />
           </ul>
         </nav>
-        <div className="h-1/3">
-          <ScrollArea className="h-full py-3">
-            <ul>
-              {songs.map((song) => (
-                <div key={song.id}>
-                  <SongButton key={song.id} song={song} />
-                </div>
-              ))}
-            </ul>
-          </ScrollArea>
-        </div>
-
         <CreatePlaylist />
         <UploadSong />
+        <div className="h-4" />
+        <Queue />
       </div>
       <div className="flex h-full w-full flex-col items-start justify-end">
         {children}
-        <Player listOfSongs={songs} />
+        <Player />
       </div>
     </div>
   );
