@@ -20,7 +20,8 @@ import { columns } from "./columns";
 import { api } from "~/trpc/react";
 import React, { useEffect, useMemo, useRef } from "react";
 import { Loader2 } from "lucide-react";
-
+// TODO: probs shouldnt render a table at all with no data
+//maybe just the spinner
 export function DataTable() {
   const {
     data: songsRaw,
