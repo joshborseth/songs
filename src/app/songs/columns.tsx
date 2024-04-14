@@ -1,7 +1,7 @@
 "use client";
 
 import { type ColumnDef } from "@tanstack/react-table";
-import { Edit, Trash2 } from "lucide-react";
+import { PlaySquare, PlusSquare } from "lucide-react";
 import { DateTime } from "luxon";
 import { Button } from "~/components/ui/button";
 import { type songs } from "~/server/db/schema";
@@ -26,10 +26,10 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
       return (
         <div className="flex gap-2">
           <Button variant="ghost" size="icon">
-            <Edit size={18} />
+            <PlusSquare size={18} />
           </Button>
           <Button variant="ghost" size="icon">
-            <Trash2 size={18} />
+            <PlaySquare size={18} />
           </Button>
         </div>
       );

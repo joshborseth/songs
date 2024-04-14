@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  type ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useIntersectionObserver } from "usehooks-ts";
 
 import {
   Table,
@@ -15,119 +15,135 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { Button } from "~/components/ui/button";
-import { useRouter } from "next/navigation";
-import { LIMIT } from "./constants";
+import { columns } from "./columns";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  totalRows: number;
-  pageNumber: number;
-}
+import { api } from "~/trpc/react";
+import React, { useEffect, useMemo, useRef } from "react";
+import { Loader2 } from "lucide-react";
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-  totalRows,
-  pageNumber,
-}: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    rowCount: totalRows,
-    pageCount: Math.ceil(totalRows / LIMIT),
-    manualPagination: true,
+export function DataTable() {
+  const {
+    data: songsRaw,
+    isLoading,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = api.song.list.useInfiniteQuery(
+    {
+      limit: 25,
+    },
+    {
+      // the cursor from where to start fetching the posts
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    },
+  );
+
+  // a ref to the viewport
+  const viewportRef = useRef<HTMLDivElement>(null);
+  // a ref to the last post element
+  const { isIntersecting, ref } = useIntersectionObserver({
+    threshold: 1,
+    root: viewportRef.current,
   });
 
-  const router = useRouter();
+  useEffect(() => {
+    // if the user reaches the bottom of the page, and there are more songs to fetch, fetch them
+    if (
+      isIntersecting &&
+      songsRaw?.pages.length &&
+      songsRaw?.pages[songsRaw.pages.length - 1]?.nextCursor
+    )
+      void fetchNextPage();
+  }, [isIntersecting]);
 
-  const handleNextPage = () => {
-    table.nextPage();
-    router.push(`/songs?page=${pageNumber + 1}`);
-  };
+  // memoize the songs, so that they don't get re-rendered on every re-render
+  const songs = useMemo(
+    () => songsRaw?.pages.flatMap((page) => page.data) ?? [],
+    [songsRaw],
+  );
 
-  const handlePreviousPage = () => {
-    table.previousPage();
-    router.push(`/songs?page=${pageNumber - 1}`);
-  };
+  const table = useReactTable({
+    data: songs,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
-  const canGetNextPage = totalRows > pageNumber * LIMIT;
-  const canGetPreviousPage = pageNumber > 1;
   return (
-    <div className="flex h-full flex-col justify-between">
-      <div className="rounded-md">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handlePreviousPage}
-          disabled={!canGetPreviousPage}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleNextPage}
-          disabled={!canGetNextPage}
-        >
-          Next
-        </Button>
-        <span className="px-2 text-xs">
-          Page {pageNumber} of {table.getPageCount()}
-        </span>
-      </div>
+    <div className="rounded-md">
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row, i) => (
+              <React.Fragment key={row.id}>
+                {i === table.getRowModel().rows.length - 1 ? (
+                  <TableRow
+                    ref={ref}
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ) : (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                )}
+              </React.Fragment>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                {isLoading ? (
+                  <div className="flex w-full justify-center">
+                    <Loader2 size={42} className="animate-spin" />
+                  </div>
+                ) : (
+                  "No results."
+                )}
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      {isFetchingNextPage && (
+        <div className="flex w-full justify-center">
+          <Loader2 size={32} className="animate-spin" />
+        </div>
+      )}
     </div>
   );
 }
