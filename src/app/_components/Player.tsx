@@ -3,13 +3,13 @@
 import AudioPlayer from "react-h5-audio-player";
 import "./styles.css";
 
-import { type RouterOutputs } from "~/trpc/shared";
 import { useCurrentSong } from "../stores/song";
+import { type songs } from "~/server/db/schema";
 
 export const Player = ({
   listOfSongs,
 }: {
-  listOfSongs: RouterOutputs["song"]["list"];
+  listOfSongs: (typeof songs.$inferSelect)[];
 }) => {
   const lastSong = listOfSongs[listOfSongs.length - 1];
   const firstSong = listOfSongs[0];
