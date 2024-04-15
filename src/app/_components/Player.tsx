@@ -39,7 +39,7 @@ export const Player = () => {
           </span>
           <AudioPlayer
             src={song.s3Url}
-            autoPlay={true}
+            autoPlay={false}
             autoPlayAfterSrcChange={true}
             hasDefaultKeyBindings={true}
             onClickNext={handleNext}
