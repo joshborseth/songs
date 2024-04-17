@@ -5,16 +5,15 @@ import { SongButton } from "./SongButton";
 import { useSongs } from "~/app/stores/song";
 import { Button } from "~/components/ui/button";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "~/components/ui/alert-dialog";
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog";
 
 export const Queue = () => {
   const { queue, clearQueue } = useSongs();
@@ -24,9 +23,8 @@ export const Queue = () => {
       <div className="h-1/3">
         <div className="flex w-full items-center justify-between">
           <h2 className="pl-3 text-lg font-bold">Queue</h2>
-
-          <AlertDialog>
-            <AlertDialogTrigger disabled={!queue?.length}>
+          <Dialog>
+            <DialogTrigger asChild disabled={!queue?.length}>
               <Button
                 disabled={!queue?.length}
                 variant="outline"
@@ -34,23 +32,25 @@ export const Queue = () => {
               >
                 Clear Queue
               </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                <AlertDialogDescription>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Are you sure?</DialogTitle>
+                <DialogDescription>
                   This will clear the queue. The songs listed in the queue will
                   no longer be queued to play.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => clearQueue()}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button onClick={() => clearQueue()}>Clear Queue</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
         <h3 className="pl-3 text-xs font-normal">
           {queue?.length ?? 0} song{queue?.length === 1 ? "" : "s"} queued.

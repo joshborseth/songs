@@ -19,6 +19,7 @@ export default async function Page() {
       playlistSongs: true,
     },
   });
+
   return (
     <div className="h-full w-full">
       <PageWrapper pageTitle="Playlists">
