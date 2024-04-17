@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { Toaster } from "~/components/ui/toaster";
+import { db } from "~/server/db";
+import { playlists } from "~/server/db/schema";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,6 +25,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  await db.insert(playlists).values({
+    name: "Favorites",
+  });
   return (
     <html lang="en">
       <body
