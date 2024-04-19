@@ -21,8 +21,8 @@ export const Queue = () => {
   return (
     <>
       <div className="h-1/3">
-        <div className="flex w-full items-center justify-between">
-          <h2 className="pl-3 text-lg font-bold">Queue</h2>
+        <div className="flex w-full items-center justify-between px-3">
+          <h2 className="text-lg font-bold">Queue</h2>
           <Dialog>
             <DialogTrigger asChild disabled={!queue?.length}>
               <Button
@@ -52,7 +52,7 @@ export const Queue = () => {
             </DialogContent>
           </Dialog>
         </div>
-        <h3 className="pl-3 text-xs font-normal">
+        <h3 className="px-3 text-xs font-normal">
           {queue?.length ?? 0} song{queue?.length === 1 ? "" : "s"} queued.
         </h3>
         <ScrollArea className="h-full py-3">

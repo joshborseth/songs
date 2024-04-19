@@ -7,6 +7,7 @@ import { Button } from "~/components/ui/button";
 import { List, ListMusic } from "lucide-react";
 import { UploadSong } from "../UploadSong";
 import { Queue } from "./Queue";
+import { UserInfo } from "./UserInfo";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   return (
@@ -16,7 +17,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
           "hidden h-full w-72 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl lg:flex",
         )}
       >
-        <h1 className="pl-3 text-3xl font-bold">Music</h1>
+        <h1 className="px-3 text-3xl font-bold">Music</h1>
         <nav className="my-4 border-y-[1px]">
           <ul className="py-2">
             <NavLink
@@ -36,6 +37,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
         <UploadSong />
         <div className="h-4" />
         <Queue />
+        <UserInfo />
       </div>
       <div className="flex h-full w-full flex-col items-start justify-end">
         {children}
