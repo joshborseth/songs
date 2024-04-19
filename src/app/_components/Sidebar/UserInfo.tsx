@@ -7,33 +7,28 @@ import { Skeleton } from "~/components/ui/skeleton";
 
 export const UserInfo = () => {
   const { user, isLoaded } = useUser();
+
   return (
     <div className="flex flex-grow flex-col justify-end gap-4 px-3">
       <h2 className="text-lg font-bold">Account</h2>
       <div className="flex items-center justify-start gap-4">
         <Avatar>
-          <AvatarImage
-            src={user?.imageUrl}
-            alt={user?.primaryEmailAddress?.emailAddress ?? "Profile Picture"}
-          />
-          <AvatarFallback>
-            {user?.firstName?.slice(0, 1)}
-            {user?.lastName?.slice(0, 1)}
-          </AvatarFallback>
+          <AvatarImage src={user?.imageUrl} alt="Profile Picture" />
+          <AvatarFallback />
         </Avatar>
         {isLoaded ? (
           <>
             <SignedIn>
-              <h3 className="w-32 truncate text-sm">
+              <h3 className="w-28 truncate text-sm">
                 {user?.firstName ?? user?.primaryEmailAddress?.emailAddress}
               </h3>
             </SignedIn>
             <SignedOut>
-              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-4 w-28" />
             </SignedOut>
           </>
         ) : (
-          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-4 w-28" />
         )}
       </div>
 
