@@ -3,6 +3,7 @@ import { text, integer, sqliteTable } from "drizzle-orm/sqlite-core";
 
 export const songs = sqliteTable("songs", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: text("userId", { length: 256 }),
   name: text("name", { length: 256 }).notNull(),
   createdAt: text("createdAt")
     .default(sql`CURRENT_TIMESTAMP`)
@@ -14,6 +15,7 @@ export const songs = sqliteTable("songs", {
 export const playlists = sqliteTable("playlists", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   name: text("name", { length: 256 }).notNull(),
+  userId: text("userId", { length: 256 }),
   createdAt: text("createdAt")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

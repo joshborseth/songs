@@ -8,10 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { EditIcon } from "lucide-react";
+import { EditIcon, Trash } from "lucide-react";
 
 import Link from "next/link";
 import { PageWrapper } from "../_components/PageWrapper";
+import { Button } from "~/components/ui/button";
 
 export default async function Page() {
   const playlists = await db.query.playlists.findMany({
@@ -30,7 +31,7 @@ export default async function Page() {
               <TableHead>Songs</TableHead>
               <TableHead>Created At</TableHead>
               <TableHead>Updated At</TableHead>
-              <TableHead>Edit</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -52,6 +53,9 @@ export default async function Page() {
                   <Link href={`/playlists/${p.id}`}>
                     <EditIcon size={18} />
                   </Link>
+                  <Button>
+                    <Trash size={18} />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
