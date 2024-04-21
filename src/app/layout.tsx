@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "~/trpc/react";
 import { Sidebar } from "./_components/Sidebar/Sidebar";
 import { Toaster } from "~/components/ui/toaster";
+import { auth } from "@clerk/nextjs/server";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { userId } = auth();
   return (
     <ClerkProvider>
       <html lang="en">
@@ -30,7 +32,13 @@ export default async function RootLayout({
           className={`font-sans ${inter.variable} h-[calc(100dvh)] overflow-hidden`}
         >
           <TRPCReactProvider cookies={cookies().toString()}>
-            <Sidebar>{children}</Sidebar>
+            {userId !== "user_2fIitDhvWByQ2tp0qDPpravyUrU" ? (
+              <div className="flex h-screen w-screen items-center justify-center">
+                <span className="text-5xl">Go Away Jedsen</span>
+              </div>
+            ) : (
+              <Sidebar>{children}</Sidebar>
+            )}
             <Toaster />
           </TRPCReactProvider>
         </body>
