@@ -2,6 +2,8 @@ import { z } from "zod";
 import { publicProcedure } from "../../../trpc";
 import { songs } from "~/server/db/schema";
 import { withCursorPagination } from "drizzle-pagination";
+import { eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const list = publicProcedure
   .input(
@@ -11,6 +13,11 @@ export const list = publicProcedure
     }),
   )
   .query(async ({ ctx, input }) => {
+    if (!ctx.auth.userId)
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "You must be logged in to perform this action",
+      });
     const { limit, cursor } = input;
 
     const data = await ctx.db.query.songs.findMany(
@@ -26,6 +33,7 @@ export const list = publicProcedure
             cursor ?? undefined,
           ],
         ],
+        where: eq(songs.userId, ctx.auth.userId),
       }),
     );
 
