@@ -1,3 +1,5 @@
+"use client";
+
 import { PlaySquare } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { type songs } from "~/server/db/schema";
