@@ -4,6 +4,8 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 import { type songs } from "~/server/db/schema";
 import { SongName } from "../_components/SongName";
+import { DeleteSong } from "../_components/DeleteSong";
+import { PlaySong } from "../_components/PlaySong";
 
 export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
   {
@@ -21,21 +23,17 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
         ? DateTime.fromSQL(row.createdAt).toFormat("LLL dd yyyy")
         : "N/A",
   },
-  // TODO: add in these actions
-  // {
-  //   accessorKey: "actions",
-  //   header: "Actions",
-  //   cell: () => {
-  //     return (
-  //       <div className="flex gap-2">
-  //         <Button variant="ghost" size="icon">
-  //           <PlusSquare size={18} />
-  //         </Button>
-  //         <Button variant="ghost" size="icon">
-  //           <PlaySquare size={18} />
-  //         </Button>
-  //       </div>
-  //     );
-  //   },
-  // },
+
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-2">
+          <PlaySong song={row.original} />
+          <DeleteSong songId={row.original.id} />
+        </div>
+      );
+    },
+  },
 ];

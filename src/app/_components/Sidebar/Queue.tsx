@@ -43,9 +43,6 @@ export const Queue = () => {
               </DialogHeader>
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DialogClose>
-                <DialogClose asChild>
                   <Button onClick={() => clearQueue()}>Clear Queue</Button>
                 </DialogClose>
               </DialogFooter>
