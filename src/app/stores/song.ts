@@ -6,7 +6,7 @@ interface SongState {
   song: typeof songs.$inferSelect | null;
   setSong: (song: typeof songs.$inferSelect) => void;
   queue: (typeof songs.$inferSelect)[] | null;
-  removeSongFromQueue: (song: typeof songs.$inferSelect) => void;
+  removeSongFromQueue: (songId: number) => void;
   clearQueue: () => void;
 }
 
@@ -27,10 +27,10 @@ export const useSongs = create<SongState>()(
           };
         }),
       queue: null,
-      removeSongFromQueue: (song) =>
+      removeSongFromQueue: (songId) =>
         set((prev) => {
-          const newQueue = prev.queue?.filter((s) => s.id !== song.id);
-          if (prev.song?.id === song.id)
+          const newQueue = prev.queue?.filter((s) => s.id !== songId);
+          if (prev.song?.id === songId)
             return {
               queue: newQueue,
               song: null,

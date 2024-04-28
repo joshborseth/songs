@@ -20,7 +20,6 @@ import { columns } from "./columns";
 import { api } from "~/trpc/react";
 import React, { useEffect, useMemo, useRef } from "react";
 import { Loader2 } from "lucide-react";
-import { useSongs } from "../stores/song";
 
 export function DataTable() {
   const {
@@ -68,8 +67,6 @@ export function DataTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const { setSong } = useSongs();
-
   if (isLoading) {
     return (
       <div className="flex w-full justify-center">
@@ -103,40 +100,22 @@ export function DataTable() {
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row, i) => (
               <React.Fragment key={row.id}>
-                {i === table.getRowModel().rows.length - 1 ? (
-                  <TableRow
-                    ref={ref}
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                    onClick={() => setSong(row.original)}
-                    className="cursor-pointer"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ) : (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                    onClick={() => setSong(row.original)}
-                    className="cursor-pointer"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                )}
+                <TableRow
+                  ref={
+                    i === table.getRowModel().rows.length - 1 ? ref : undefined
+                  }
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
               </React.Fragment>
             ))
           ) : (

@@ -27,7 +27,7 @@ export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem
-          onClick={() => songState.removeSongFromQueue(song)}
+          onClick={() => songState.removeSongFromQueue(song.id)}
           className="flex gap-2"
         >
           <Trash2 size={16} /> <span>Remove from Queue</span>
