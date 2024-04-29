@@ -8,10 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { EditIcon } from "lucide-react";
+import { Edit } from "lucide-react";
 
 import Link from "next/link";
 import { PageWrapper } from "../_components/PageWrapper";
+import { Button } from "~/components/ui/button";
+import { DeletePlaylist } from "../_components/DeletePlaylist";
 
 export default async function Page() {
   const playlists = await db.query.playlists.findMany({
@@ -19,7 +21,6 @@ export default async function Page() {
       playlistSongs: true,
     },
   });
-
   return (
     <div className="h-full w-full">
       <PageWrapper pageTitle="Playlists">
@@ -49,9 +50,14 @@ export default async function Page() {
                     : "N/A"}
                 </TableCell>
                 <TableCell>
-                  <Link href={`/playlists/${p.id}`}>
-                    <EditIcon size={18} />
-                  </Link>
+                  <div className="flex gap-2">
+                    <Button size="icon" variant="ghost">
+                      <Link href={`/playlists/${p.id}`}>
+                        <Edit size={18} />
+                      </Link>
+                    </Button>
+                    <DeletePlaylist playlistId={p.id} />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

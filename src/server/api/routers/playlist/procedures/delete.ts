@@ -4,7 +4,7 @@ import { playlists } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
 
 export const deletePlaylist = publicProcedure
-  .input(z.object({ songId: z.number() }))
+  .input(z.object({ playlistId: z.number() }))
   .mutation(async ({ ctx, input }) => {
-    await ctx.db.delete(playlists).where(eq(playlists.id, input.songId));
+    await ctx.db.delete(playlists).where(eq(playlists.id, input.playlistId));
   });

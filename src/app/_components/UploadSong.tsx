@@ -1,6 +1,5 @@
 "use client";
 import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
@@ -22,7 +21,7 @@ export const UploadSong = () => {
   const uploadMutation = api.song.upload.useMutation();
   const [ytUrl, setYtUrl] = useState("");
   const { toast } = useToast();
-  const router = useRouter();
+  const utils = api.useUtils();
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -58,7 +57,8 @@ export const UploadSong = () => {
                     description: "Song has been uploaded",
                   });
                   setYtUrl("");
-                  router.refresh();
+                  setOpen(false);
+                  void utils.song.list.invalidate();
                 },
                 onError: (err) => {
                   toast({

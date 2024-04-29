@@ -6,6 +6,7 @@ import { type songs } from "~/server/db/schema";
 import { SongName } from "../_components/SongName";
 import { DeleteSong } from "../_components/DeleteSong";
 import { PlaySong } from "../_components/PlaySong";
+import { AddSongToPlaylist } from "../_components/AddSongToPlaylist";
 
 export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
   {
@@ -23,7 +24,6 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
         ? DateTime.fromSQL(row.createdAt).toFormat("LLL dd yyyy")
         : "N/A",
   },
-
   {
     accessorKey: "actions",
     header: "Actions",
@@ -32,6 +32,7 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
         <div className="flex gap-2">
           <PlaySong song={row.original} />
           <DeleteSong songId={row.original.id} />
+          <AddSongToPlaylist songId={row.original.id} />
         </div>
       );
     },

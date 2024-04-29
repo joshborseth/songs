@@ -1,5 +1,9 @@
 import { publicProcedure } from "../../../trpc";
 
 export const list = publicProcedure.query(async ({ ctx }) => {
-  return await ctx.db.query.playlists.findMany();
+  return await ctx.db.query.playlists.findMany({
+    with: {
+      playlistSongs: true,
+    },
+  });
 });
