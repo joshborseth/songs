@@ -66,7 +66,7 @@ export const CreatePlaylist = () => {
             required
             placeholder="Playlist Name"
           />
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter>
             <Button type="submit">
               {createPlaylist.isLoading ? "Loading..." : "Create"}
             </Button>

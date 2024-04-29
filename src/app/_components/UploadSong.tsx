@@ -90,7 +90,7 @@ export const UploadSong = () => {
             required
             placeholder="Youtube URL"
           />
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter>
             <Button type="submit">
               {uploadMutation.isLoading ? "Loading..." : "Upload"}
             </Button>

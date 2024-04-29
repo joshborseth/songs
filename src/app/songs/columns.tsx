@@ -6,7 +6,13 @@ import { type songs } from "~/server/db/schema";
 import { SongName } from "../_components/SongName";
 import { DeleteSong } from "../_components/DeleteSong";
 import { PlaySong } from "../_components/PlaySong";
-import { AddSongToPlaylist } from "../_components/AddSongToPlaylist";
+import { AddSongToQueue } from "../_components/AddSongToQueue";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
   {
@@ -30,9 +36,32 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex gap-2">
-          <PlaySong song={row.original} />
-          <DeleteSong songId={row.original.id} />
-          <AddSongToPlaylist songId={row.original.id} />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <PlaySong song={row.original} />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Play Song</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <DeleteSong songId={row.original.id} />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Delete Song</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger>
+                <AddSongToQueue song={row.original} />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Add Song To Queue</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       );
     },

@@ -72,7 +72,7 @@ export const DeleteSong = ({ songId }: { songId: number }) => {
               song?
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter>
             <Button variant="destructive" type="submit">
               Delete
             </Button>

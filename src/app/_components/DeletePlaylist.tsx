@@ -57,7 +57,7 @@ export const DeletePlaylist = ({ playlistId }: { playlistId: number }) => {
               playlist?
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter>
             <Button variant="destructive" type="submit">
               {isLoading ? "Loading..." : "Delete"}
             </Button>

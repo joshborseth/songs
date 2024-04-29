@@ -8,6 +8,7 @@ import { List, ListMusic } from "lucide-react";
 import { UploadSong } from "../UploadSong";
 import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
+import { Separator } from "~/components/ui/separator";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   return (
@@ -18,8 +19,9 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
         )}
       >
         <h1 className="px-3 text-3xl font-bold">Music</h1>
-        <nav className="my-4 border-y-[1px]">
-          <ul className="py-2">
+        <Separator className="mt-4" />
+        <nav>
+          <ul className="py-1">
             <NavLink
               href="/playlists"
               icon={<List size={18} />}
@@ -33,6 +35,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
             />
           </ul>
         </nav>
+        <Separator className="mb-4" />
         <CreatePlaylist />
         <UploadSong />
         <div className="h-4" />

@@ -14,6 +14,12 @@ import Link from "next/link";
 import { PageWrapper } from "../_components/PageWrapper";
 import { Button } from "~/components/ui/button";
 import { DeletePlaylist } from "../_components/DeletePlaylist";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 export default async function Page() {
   const playlists = await db.query.playlists.findMany({
@@ -37,7 +43,7 @@ export default async function Page() {
           <TableBody>
             {playlists.map((p) => (
               <TableRow key={p.id}>
-                <TableCell className="font-medium">{p.name}</TableCell>
+                <TableCell>{p.name}</TableCell>
                 <TableCell>{p.playlistSongs.length}</TableCell>
                 <TableCell>
                   {p?.createdAt
@@ -51,12 +57,28 @@ export default async function Page() {
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2">
-                    <Button size="icon" variant="ghost">
-                      <Link href={`/playlists/${p.id}`}>
-                        <Edit size={18} />
-                      </Link>
-                    </Button>
-                    <DeletePlaylist playlistId={p.id} />
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Button size="icon" variant="ghost">
+                            <Link href={`/playlists/${p.id}`}>
+                              <Edit size={18} />
+                            </Link>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Edit Playlist</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <DeletePlaylist playlistId={p.id} />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Delete Playlist</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                 </TableCell>
               </TableRow>

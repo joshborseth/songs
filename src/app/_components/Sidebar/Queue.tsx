@@ -53,7 +53,7 @@ export const Queue = () => {
           {queue?.length ?? 0} song{queue?.length === 1 ? "" : "s"} queued.
         </h3>
         <ScrollArea className="h-full py-3">
-          <ul>
+          <div>
             {queue?.length
               ? queue.map((song) => (
                   <div key={song.id}>
@@ -61,7 +61,7 @@ export const Queue = () => {
                   </div>
                 ))
               : null}
-          </ul>
+          </div>
         </ScrollArea>
       </div>
     </>

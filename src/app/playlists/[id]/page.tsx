@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableRow } from "~/components/ui/table";
 import { eq } from "drizzle-orm";
 import { playlists } from "~/server/db/schema";
 import { PageWrapper } from "~/app/_components/PageWrapper";
+import { AddSongsToPlaylist } from "~/app/_components/AddSongsToPlaylist";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const playlistSongsQuery = await db.query.playlists.findFirst({
@@ -24,7 +25,13 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="h-full w-full">
-      <PageWrapper pageTitle={playlistSongsQuery.name}>
+      <PageWrapper
+        pageTitle={playlistSongsQuery.name}
+        backButton={{
+          href: "/playlists",
+        }}
+        actions={[<AddSongsToPlaylist />]}
+      >
         {songs.length ? (
           <Table>
             <TableBody>
