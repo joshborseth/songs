@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useIntersectionObserver } from "usehooks-ts";
 import { Button } from "~/components/ui/button";
@@ -15,6 +15,7 @@ import {
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
+import { Loading } from "./Loading";
 
 export const AddSongsToPlaylist = () => {
   const [open, setOpen] = useState(false);
@@ -78,11 +79,7 @@ export const AddSongsToPlaylist = () => {
         <Separator className="my-2" />
         <ScrollArea>
           <div className="flex h-52 w-full flex-col gap-3">
-            {isLoading ? (
-              <div className="flex w-full justify-center">
-                <Loader2 size={32} className="animate-spin" />
-              </div>
-            ) : null}
+            {isLoading ? <Loading /> : null}
             {songs.map((s, i) => {
               return (
                 <div
@@ -97,11 +94,7 @@ export const AddSongsToPlaylist = () => {
                 </div>
               );
             })}
-            {isFetchingNextPage && (
-              <div className="flex w-full justify-center">
-                <Loader2 size={32} className="animate-spin" />
-              </div>
-            )}
+            {isFetchingNextPage && <Loading />}
           </div>
         </ScrollArea>
       </DialogContent>

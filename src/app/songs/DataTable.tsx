@@ -19,7 +19,7 @@ import { columns } from "./columns";
 
 import { api } from "~/trpc/react";
 import React, { useEffect, useMemo, useRef } from "react";
-import { Loader2 } from "lucide-react";
+import { Loading } from "../_components/Loading";
 
 export function DataTable() {
   const {
@@ -68,11 +68,7 @@ export function DataTable() {
   });
 
   if (isLoading) {
-    return (
-      <div className="flex w-full justify-center">
-        <Loader2 size={32} className="animate-spin" />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
@@ -127,11 +123,7 @@ export function DataTable() {
           )}
         </TableBody>
       </Table>
-      {isFetchingNextPage && (
-        <div className="flex w-full justify-center">
-          <Loader2 size={32} className="animate-spin" />
-        </div>
-      )}
+      {isFetchingNextPage && <Loading />}
     </div>
   );
 }

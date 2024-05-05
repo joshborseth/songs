@@ -20,6 +20,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { Suspense } from "react";
+import { Loading } from "../_components/Loading";
 
 export default async function Page() {
   const playlists = await db.query.playlists.findMany({
@@ -41,48 +43,50 @@ export default async function Page() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {playlists.map((p) => (
-              <TableRow key={p.id}>
-                <TableCell>{p.name}</TableCell>
-                <TableCell>{p.playlistSongs.length}</TableCell>
-                <TableCell>
-                  {p?.createdAt
-                    ? DateTime.fromSQL(p.createdAt).toFormat("LLL dd yyyy")
-                    : "N/A"}
-                </TableCell>
-                <TableCell>
-                  {p?.updatedAt
-                    ? DateTime.fromSQL(p.updatedAt).toFormat("LLL dd yyyy")
-                    : "N/A"}
-                </TableCell>
-                <TableCell>
-                  <div className="flex gap-2">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Button size="icon" variant="ghost">
-                            <Link href={`/playlists/${p.id}`}>
-                              <Edit size={18} />
-                            </Link>
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Edit Playlist</p>
-                        </TooltipContent>
-                      </Tooltip>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <DeletePlaylist playlistId={p.id} />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Delete Playlist</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+            <Suspense fallback={<Loading />}>
+              {playlists.map((p) => (
+                <TableRow key={p.id}>
+                  <TableCell>{p.name}</TableCell>
+                  <TableCell>{p.playlistSongs.length}</TableCell>
+                  <TableCell>
+                    {p?.createdAt
+                      ? DateTime.fromSQL(p.createdAt).toFormat("LLL dd yyyy")
+                      : "N/A"}
+                  </TableCell>
+                  <TableCell>
+                    {p?.updatedAt
+                      ? DateTime.fromSQL(p.updatedAt).toFormat("LLL dd yyyy")
+                      : "N/A"}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button size="icon" variant="ghost">
+                              <Link href={`/playlists/${p.id}`}>
+                                <Edit size={18} />
+                              </Link>
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Edit Playlist</p>
+                          </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <DeletePlaylist playlistId={p.id} />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Delete Playlist</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </Suspense>
           </TableBody>
         </Table>
       </PageWrapper>

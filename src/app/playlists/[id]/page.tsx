@@ -6,6 +6,8 @@ import { eq } from "drizzle-orm";
 import { playlists } from "~/server/db/schema";
 import { PageWrapper } from "~/app/_components/PageWrapper";
 import { AddSongsToPlaylist } from "~/app/_components/AddSongsToPlaylist";
+import { Suspense } from "react";
+import { Loading } from "~/app/_components/Loading";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const playlistSongsQuery = await db.query.playlists.findFirst({
@@ -32,19 +34,21 @@ export default async function Page({ params }: { params: { id: string } }) {
         }}
         actions={[<AddSongsToPlaylist />]}
       >
-        {songs.length ? (
-          <Table>
-            <TableBody>
-              {songs.map((s) => (
-                <TableRow key={s.id}>
-                  <TableCell className="font-medium">{s.name}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        ) : (
-          <p className="text-center">No songs in this playlist.</p>
-        )}
+        <Suspense fallback={<Loading />}>
+          {songs.length ? (
+            <Table>
+              <TableBody>
+                {songs.map((s) => (
+                  <TableRow key={s.id}>
+                    <TableCell className="font-medium">{s.name}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-center">No songs in this playlist.</p>
+          )}
+        </Suspense>
       </PageWrapper>
     </div>
   );
