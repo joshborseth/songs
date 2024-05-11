@@ -38,7 +38,7 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
         <div className="flex gap-2">
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <PlaySong song={row.original} />
               </TooltipTrigger>
               <TooltipContent>
@@ -46,7 +46,7 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
               </TooltipContent>
             </Tooltip>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <DeleteSong songId={row.original.id} />
               </TooltipTrigger>
               <TooltipContent>
@@ -54,7 +54,7 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
               </TooltipContent>
             </Tooltip>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <AddSongToQueue song={row.original} />
               </TooltipTrigger>
               <TooltipContent>

@@ -73,14 +73,7 @@ export default async function Page() {
                             <p>Edit Playlist</p>
                           </TooltipContent>
                         </Tooltip>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <DeletePlaylist playlistId={p.id} />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Delete Playlist</p>
-                          </TooltipContent>
-                        </Tooltip>
+                        <DeletePlaylist playlistId={p.id} />
                       </TooltipProvider>
                     </div>
                   </TableCell>

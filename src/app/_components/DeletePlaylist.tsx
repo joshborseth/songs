@@ -13,6 +13,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 import { useToast } from "~/components/ui/use-toast";
 
 import { api } from "~/trpc/react";
@@ -37,11 +42,18 @@ export const DeletePlaylist = ({ playlistId }: { playlistId: number }) => {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
-          <Trash2 size={18} />
-        </Button>
-      </DialogTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <DialogTrigger asChild>
+            <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
+              <Trash2 size={18} />
+            </Button>
+          </DialogTrigger>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Delete Playlist</p>
+        </TooltipContent>
+      </Tooltip>
       <DialogContent>
         <form
           onSubmit={(e) => {

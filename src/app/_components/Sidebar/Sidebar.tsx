@@ -1,14 +1,12 @@
 import { cn } from "~/lib/utils";
 import { Player } from "../Player";
 import { CreatePlaylist } from "../CreatePlaylist";
-import { type ReactNode } from "react";
-import Link from "next/link";
-import { Button } from "~/components/ui/button";
 import { List, ListMusic } from "lucide-react";
 import { UploadSong } from "../UploadSong";
 import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
 import { Separator } from "~/components/ui/separator";
+import { NavLink } from "./NavLink";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   return (
@@ -25,12 +23,14 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
             <NavLink
               href="/playlists"
               icon={<List size={18} />}
+              activeIcon={<List size={18} strokeWidth={3} />}
               label="Playlists"
             />
 
             <NavLink
               href="/songs"
               icon={<ListMusic size={18} />}
+              activeIcon={<ListMusic size={18} strokeWidth={3} />}
               label="Songs"
             />
           </ul>
@@ -49,24 +49,3 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-
-const NavLink = ({
-  href,
-  label,
-  icon,
-}: {
-  href: string;
-  label: string;
-  icon: ReactNode;
-}) => {
-  return (
-    <li>
-      <Link href={href}>
-        <Button variant="ghost" className="flex w-full justify-start gap-3">
-          {icon}
-          {label}
-        </Button>
-      </Link>
-    </li>
-  );
-};

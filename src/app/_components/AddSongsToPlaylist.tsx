@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useIntersectionObserver } from "usehooks-ts";
 import { Button } from "~/components/ui/button";
@@ -8,6 +8,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -16,8 +17,10 @@ import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
 import { Loading } from "./Loading";
+import { useToast } from "~/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
-export const AddSongsToPlaylist = () => {
+export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
   const [open, setOpen] = useState(false);
   const {
     data: songsRaw,
@@ -57,6 +60,29 @@ export const AddSongsToPlaylist = () => {
     () => songsRaw?.pages.flatMap((page) => page.data) ?? [],
     [songsRaw],
   );
+  const { toast } = useToast();
+
+  const [selectedSongs, setSelectedSongs] = useState<number[]>([]);
+  const router = useRouter();
+  const addSongs = api.playlist.addSongToPlaylistBulk.useMutation({
+    onError: (err) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: err.message,
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Success",
+        description: "Your selected songs have been added to the playlist",
+      });
+      setSelectedSongs([]);
+      setOpen(false);
+      router.refresh();
+    },
+  });
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -88,15 +114,54 @@ export const AddSongsToPlaylist = () => {
                   ref={i === songs.length - 1 ? ref : undefined}
                 >
                   <span className="text-sm font-medium">{s.name}</span>
-                  <Button variant="secondary" size="icon">
-                    <Plus size={16} />
-                  </Button>
+                  {selectedSongs.includes(s.id) ? (
+                    <Button
+                      onClick={() => {
+                        setSelectedSongs((prev) => {
+                          return prev.filter((id) => id !== s.id);
+                        });
+                      }}
+                      variant="secondary"
+                      className="bg-green-100 text-green-900 hover:bg-green-100/90"
+                      size="icon"
+                    >
+                      <Check size={16} />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() =>
+                        setSelectedSongs((prev) => {
+                          return [...prev, s.id];
+                        })
+                      }
+                      variant="secondary"
+                      size="icon"
+                    >
+                      <Plus size={16} />
+                    </Button>
+                  )}
                 </div>
               );
             })}
             {isFetchingNextPage && <Loading />}
           </div>
         </ScrollArea>
+        <DialogFooter className="items-center gap-3 sm:justify-between">
+          <DialogDescription className="text-center sm:text-left">
+            {selectedSongs.length} songs selected
+          </DialogDescription>
+          <Button
+            onClick={() => {
+              addSongs.mutate({
+                playlistId,
+                songIds: selectedSongs,
+              });
+            }}
+            disabled={!selectedSongs.length}
+          >
+            {addSongs.isLoading ? "Loading..." : "Submit"}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

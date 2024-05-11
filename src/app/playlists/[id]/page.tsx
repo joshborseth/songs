@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import { Loading } from "~/app/_components/Loading";
 
 export default async function Page({ params }: { params: { id: string } }) {
+  if (isNaN(Number(params.id))) throw new Error("Invalid Playlist");
   const playlistSongsQuery = await db.query.playlists.findFirst({
     where: eq(playlists.id, Number(params.id)),
     with: {
@@ -32,7 +33,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         backButton={{
           href: "/playlists",
         }}
-        actions={[<AddSongsToPlaylist />]}
+        actions={[<AddSongsToPlaylist playlistId={Number(params.id)} />]}
       >
         <Suspense fallback={<Loading />}>
           {songs.length ? (
