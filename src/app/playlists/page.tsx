@@ -42,7 +42,7 @@ export default async function Page() {
               <TableHead>Edit</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="w-full">
             <Suspense fallback={<Loading />}>
               {playlists.map((p) => (
                 <TableRow key={p.id}>

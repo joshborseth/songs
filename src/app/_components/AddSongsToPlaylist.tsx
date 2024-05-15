@@ -27,9 +27,10 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
     isLoading,
     fetchNextPage,
     isFetchingNextPage,
-  } = api.song.list.useInfiniteQuery(
+  } = api.playlist.listSongsToAdd.useInfiniteQuery(
     {
       limit: 25,
+      playlistId,
     },
     {
       // the cursor from where to start fetching the posts

@@ -14,6 +14,7 @@ import {
 } from "~/components/ui/dialog";
 import { api } from "~/trpc/react";
 import { useSongs } from "../stores/song";
+import { TooltipTrigger } from "~/components/ui/tooltip";
 
 export const DeleteSong = ({ songId }: { songId: number }) => {
   const utils = api.useUtils();
@@ -53,9 +54,11 @@ export const DeleteSong = ({ songId }: { songId: number }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
-          <Trash2 size={18} />
-        </Button>
+        <TooltipTrigger asChild>
+          <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
+            <Trash2 size={18} />
+          </Button>
+        </TooltipTrigger>
       </DialogTrigger>
       <DialogContent>
         <form

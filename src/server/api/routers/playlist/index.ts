@@ -6,6 +6,7 @@ import {
   addSongToPlaylist,
   removeSongFromPlaylist,
   addSongToPlaylistBulk,
+  listSongsToAdd,
 } from "./procedures";
 
 export const playlistRouter = createTRPCRouter({
@@ -15,4 +16,5 @@ export const playlistRouter = createTRPCRouter({
   addSongToPlaylist,
   removeSongFromPlaylist,
   addSongToPlaylistBulk,
+  listSongsToAdd,
 });

@@ -11,7 +11,6 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
 } from "~/components/ui/tooltip";
 
 export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
@@ -38,25 +37,19 @@ export const columns: ColumnDef<typeof songs.$inferSelect>[] = [
         <div className="flex gap-2">
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger asChild>
-                <PlaySong song={row.original} />
-              </TooltipTrigger>
+              <PlaySong song={row.original} />
               <TooltipContent>
                 <p>Play Song</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
-              <TooltipTrigger asChild>
-                <DeleteSong songId={row.original.id} />
-              </TooltipTrigger>
+              <DeleteSong songId={row.original.id} />
               <TooltipContent>
                 <p>Delete Song</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
-              <TooltipTrigger asChild>
-                <AddSongToQueue song={row.original} />
-              </TooltipTrigger>
+              <AddSongToQueue song={row.original} />
               <TooltipContent>
                 <p>Add Song To Queue</p>
               </TooltipContent>
