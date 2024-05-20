@@ -43,42 +43,58 @@ export default async function Page() {
             </TableRow>
           </TableHeader>
           <TableBody className="w-full">
-            <Suspense fallback={<Loading />}>
-              {playlists.map((p) => (
-                <TableRow key={p.id}>
-                  <TableCell>{p.name}</TableCell>
-                  <TableCell>{p.playlistSongs.length}</TableCell>
-                  <TableCell>
-                    {p?.createdAt
-                      ? DateTime.fromSQL(p.createdAt).toFormat("LLL dd yyyy")
-                      : "N/A"}
-                  </TableCell>
-                  <TableCell>
-                    {p?.updatedAt
-                      ? DateTime.fromSQL(p.updatedAt).toFormat("LLL dd yyyy")
-                      : "N/A"}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex gap-2">
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button size="icon" variant="ghost">
-                              <Link href={`/playlists/${p.id}`}>
-                                <Edit size={18} />
-                              </Link>
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Edit Playlist</p>
-                          </TooltipContent>
-                        </Tooltip>
-                        <DeletePlaylist playlistId={p.id} />
-                      </TooltipProvider>
-                    </div>
+            <Suspense
+              fallback={
+                <TableRow>
+                  <TableCell colSpan={5} className="h-24 text-center">
+                    <Loading />
                   </TableCell>
                 </TableRow>
-              ))}
+              }
+            >
+              {playlists.length ? (
+                playlists.map((p) => (
+                  <TableRow key={p.id}>
+                    <TableCell>{p.name}</TableCell>
+                    <TableCell>{p.playlistSongs.length}</TableCell>
+                    <TableCell>
+                      {p?.createdAt
+                        ? DateTime.fromSQL(p.createdAt).toFormat("LLL dd yyyy")
+                        : "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      {p?.updatedAt
+                        ? DateTime.fromSQL(p.updatedAt).toFormat("LLL dd yyyy")
+                        : "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex gap-2">
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button size="icon" variant="ghost">
+                                <Link href={`/playlists/${p.id}`}>
+                                  <Edit size={18} />
+                                </Link>
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Edit Playlist</p>
+                            </TooltipContent>
+                          </Tooltip>
+                          <DeletePlaylist playlistId={p.id} />
+                        </TooltipProvider>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} className="h-24 text-center">
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
             </Suspense>
           </TableBody>
         </Table>
