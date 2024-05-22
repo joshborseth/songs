@@ -7,6 +7,7 @@ import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
 import { Separator } from "~/components/ui/separator";
 import { NavLink } from "./NavLink";
+import { Color } from "../Color";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   return (
@@ -44,6 +45,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex h-full w-full flex-col items-start justify-end">
         {children}
+        <Color />
         <Player />
       </div>
     </div>

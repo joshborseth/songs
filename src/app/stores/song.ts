@@ -9,6 +9,8 @@ interface SongState {
   removeSongFromQueue: (songId: number) => void;
   clearQueue: () => void;
   addSongToQueue: (song: typeof songs.$inferSelect) => void;
+  color: number[] | null;
+  setColor: (color: number[]) => void;
 }
 
 export const useSongs = create<SongState>()(
@@ -50,6 +52,8 @@ export const useSongs = create<SongState>()(
             queue: [...prev.queue, song],
           };
         }),
+      color: null,
+      setColor: (color) => set({ color }),
     }),
     {
       name: "song-store",
