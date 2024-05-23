@@ -1,4 +1,3 @@
-import { db } from "~/server/db";
 import { DateTime } from "luxon";
 import {
   Table,
@@ -8,21 +7,35 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { EditIcon } from "lucide-react";
+import { Edit } from "lucide-react";
 
 import Link from "next/link";
 import { PageWrapper } from "../_components/PageWrapper";
+import { Button } from "~/components/ui/button";
+import { DeletePlaylist } from "../_components/DeletePlaylist";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
+import { Suspense } from "react";
+import { Loading } from "../_components/Loading";
+import { CreatePlaylist } from "../_components/CreatePlaylist";
+import { api } from "~/trpc/server";
+
+export const metadata = {
+  title: "Playlists",
+  description: "Organize your music into playlists.",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
+};
 
 export default async function Page() {
-  const playlists = await db.query.playlists.findMany({
-    with: {
-      playlistSongs: true,
-    },
-  });
+  const playlists = await api.playlist.list.query();
 
   return (
     <div className="h-full w-full">
-      <PageWrapper pageTitle="Playlists">
+      <PageWrapper pageTitle="Playlists" actions={[<CreatePlaylist />]}>
         <Table>
           <TableHeader>
             <TableRow>
@@ -33,28 +46,60 @@ export default async function Page() {
               <TableHead>Edit</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {playlists.map((p) => (
-              <TableRow key={p.id}>
-                <TableCell className="font-medium">{p.name}</TableCell>
-                <TableCell>{p.playlistSongs.length}</TableCell>
-                <TableCell>
-                  {p?.createdAt
-                    ? DateTime.fromSQL(p.createdAt).toFormat("LLL dd yyyy")
-                    : "N/A"}
-                </TableCell>
-                <TableCell>
-                  {p?.updatedAt
-                    ? DateTime.fromSQL(p.updatedAt).toFormat("LLL dd yyyy")
-                    : "N/A"}
-                </TableCell>
-                <TableCell>
-                  <Link href={`/playlists/${p.id}`}>
-                    <EditIcon size={18} />
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
+          <TableBody className="w-full">
+            <Suspense
+              fallback={
+                <TableRow>
+                  <TableCell colSpan={5} className="h-24 text-center">
+                    <Loading />
+                  </TableCell>
+                </TableRow>
+              }
+            >
+              {playlists.length ? (
+                playlists.map((p) => (
+                  <TableRow key={p.id}>
+                    <TableCell>{p.name}</TableCell>
+                    <TableCell>{p.playlistSongs.length}</TableCell>
+                    <TableCell>
+                      {p?.createdAt
+                        ? DateTime.fromSQL(p.createdAt).toFormat("LLL dd yyyy")
+                        : "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      {p?.updatedAt
+                        ? DateTime.fromSQL(p.updatedAt).toFormat("LLL dd yyyy")
+                        : "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex gap-2">
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Link href={`/playlists/${p.id}`}>
+                                <Button size="icon" variant="ghost">
+                                  <Edit size={18} />
+                                </Button>
+                              </Link>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Edit Playlist</p>
+                            </TooltipContent>
+                          </Tooltip>
+                          <DeletePlaylist playlistId={p.id} />
+                        </TooltipProvider>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} className="h-24 text-center">
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </Suspense>
           </TableBody>
         </Table>
       </PageWrapper>

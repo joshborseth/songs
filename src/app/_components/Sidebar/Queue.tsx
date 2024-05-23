@@ -2,7 +2,7 @@
 
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { SongButton } from "./SongButton";
-import { useSongs } from "~/app/stores/song";
+import { useAppState } from "~/app/stores/app";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -16,7 +16,7 @@ import {
 } from "~/components/ui/dialog";
 
 export const Queue = () => {
-  const { queue, clearQueue } = useSongs();
+  const { queue, clearQueue } = useAppState();
 
   return (
     <>
@@ -53,7 +53,7 @@ export const Queue = () => {
           {queue?.length ?? 0} song{queue?.length === 1 ? "" : "s"} queued.
         </h3>
         <ScrollArea className="h-full py-3">
-          <ul>
+          <div>
             {queue?.length
               ? queue.map((song) => (
                   <div key={song.id}>
@@ -61,7 +61,12 @@ export const Queue = () => {
                   </div>
                 ))
               : null}
-          </ul>
+          </div>
+          {Boolean(queue?.length) && (
+            <p className="pl-3 pt-3 text-xs">
+              Right click a song to remove it from the queue.
+            </p>
+          )}
         </ScrollArea>
       </div>
     </>

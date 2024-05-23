@@ -2,7 +2,9 @@
 
 import { AudioLines, Music } from "lucide-react";
 import { type songs } from "~/server/db/schema";
-import { useSongs } from "../stores/song";
+import { useAppState } from "../stores/app";
+import Image from "next/image";
+import { cn } from "~/lib/utils";
 
 export const SongName = ({
   song,
@@ -11,17 +13,33 @@ export const SongName = ({
   song: typeof songs.$inferSelect;
   truncateText?: boolean;
 }) => {
-  const songState = useSongs();
+  const currentSong = useAppState((s) => s.song);
+  const isPlaying = currentSong?.id === song.id;
   return (
-    <div className="flex w-full justify-start gap-3">
-      {songState.song?.id === song.id ? (
-        <AudioLines size={18} className="animate-pulse" />
+    <div className="flex w-full items-center justify-start gap-3">
+      {isPlaying ? (
+        <AudioLines size={18} strokeWidth={3} className="animate-pulse" />
       ) : (
         <Music size={18} />
       )}
-      {truncateText && song.name.length > 20
-        ? `${song.name.slice(0, 18)}...`
-        : song.name}
+      {!truncateText && (
+        <Image
+          src={song.thumbnailUrl}
+          width={40}
+          height={40}
+          alt={song.name}
+          className="h-12 w-12 rounded-xl object-cover p-2"
+        />
+      )}
+
+      <span
+        className={cn(
+          truncateText ? "w-32 truncate text-left" : "max-w-[15rem]",
+          isPlaying && "font-bold",
+        )}
+      >
+        {song.name}
+      </span>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
@@ -39,9 +40,9 @@ export const CreatePlaylist = () => {
               { name },
               {
                 onSuccess: () => {
-                  router.refresh();
                   setName("");
                   setOpen(false);
+                  router.refresh();
                 },
               },
             );
@@ -65,7 +66,7 @@ export const CreatePlaylist = () => {
             required
             placeholder="Playlist Name"
           />
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter>
             <Button type="submit">
               {createPlaylist.isLoading ? "Loading..." : "Create"}
             </Button>

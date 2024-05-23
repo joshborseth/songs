@@ -1,16 +1,20 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { type songs } from "~/server/db/schema";
-
-interface SongState {
+import { unique } from "radash";
+interface AppState {
   song: typeof songs.$inferSelect | null;
   setSong: (song: typeof songs.$inferSelect) => void;
   queue: (typeof songs.$inferSelect)[] | null;
   removeSongFromQueue: (songId: number) => void;
   clearQueue: () => void;
+  addSongToQueue: (song: typeof songs.$inferSelect) => void;
+  color: number[] | null;
+  setColor: (color: number[] | null) => void;
+  bulkAddSongsToQueue: (songsToAdd: (typeof songs.$inferSelect)[]) => void;
 }
 
-export const useSongs = create<SongState>()(
+export const useAppState = create<AppState>()(
   persist(
     (set) => ({
       song: null,
@@ -38,9 +42,29 @@ export const useSongs = create<SongState>()(
           return { queue: newQueue };
         }),
       clearQueue: () => set({ queue: null }),
+      addSongToQueue: (song) =>
+        set((prev) => {
+          if (!prev.queue) {
+            return { queue: [song] };
+          }
+          if (prev.queue.find((s) => s.id === song.id))
+            return { queue: prev.queue };
+          return {
+            queue: [...prev.queue, song],
+          };
+        }),
+      bulkAddSongsToQueue: (songsToAdd) =>
+        set((prev) => {
+          if (!prev.queue) {
+            return { queue: songsToAdd };
+          }
+          return { queue: unique([...prev.queue, ...songsToAdd]) };
+        }),
+      color: null,
+      setColor: (color) => set({ color }),
     }),
     {
-      name: "song-store",
+      name: "app-store",
     },
   ),
 );

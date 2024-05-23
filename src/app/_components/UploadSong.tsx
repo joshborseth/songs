@@ -22,8 +22,9 @@ export const UploadSong = () => {
   const uploadMutation = api.song.upload.useMutation();
   const [ytUrl, setYtUrl] = useState("");
   const { toast } = useToast();
-  const router = useRouter();
+  const utils = api.useUtils();
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -58,6 +59,8 @@ export const UploadSong = () => {
                     description: "Song has been uploaded",
                   });
                   setYtUrl("");
+                  setOpen(false);
+                  void utils.song.list.invalidate();
                   router.refresh();
                 },
                 onError: (err) => {
@@ -90,7 +93,7 @@ export const UploadSong = () => {
             required
             placeholder="Youtube URL"
           />
-          <DialogFooter className="sm:justify-start">
+          <DialogFooter>
             <Button type="submit">
               {uploadMutation.isLoading ? "Loading..." : "Upload"}
             </Button>
