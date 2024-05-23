@@ -1,15 +1,14 @@
 "use client";
 
 import { useAppState } from "../stores/app";
-//TODO: add the other two colors to this gradient
 export const Color = () => {
-  const color = useAppState((s) => s.color);
-  if (!color) return null;
+  const colors = useAppState((s) => s.colors);
+  if (!colors) return null;
   return (
     <div
       className="h-32 w-full"
       style={{
-        background: `linear-gradient(to top, rgba(${color.join(
+        background: `linear-gradient(to top, rgba(${colors[2].join(
           ",",
         )},.3), rgba(0,0,0,0) 100%)`,
       }}

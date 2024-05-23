@@ -9,7 +9,7 @@ import { useRef } from "react";
 import { prominent } from "color.js";
 
 export const Player = () => {
-  const { song, setSong, queue, setColor } = useAppState();
+  const { song, setSong, queue, setColors } = useAppState();
 
   const ref = useRef<HTMLImageElement | null>(null);
 
@@ -49,8 +49,11 @@ export const Player = () => {
               alt={song.name}
               onLoad={async () => {
                 if (!ref.current?.src) return;
-                const colors = await prominent(ref.current.src);
-                setColor(colors[2] as number[]);
+                const colors = (await prominent(ref.current.src)) as
+                  | [number[], number[], number[]]
+                  | string;
+                if (!colors || typeof colors === "string") return;
+                setColors(colors);
               }}
               className="h-20 w-20 rounded-xl object-cover p-2"
             />
