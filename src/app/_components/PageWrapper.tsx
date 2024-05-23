@@ -22,15 +22,17 @@ export const PageWrapper = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {backButton && (
-            <Button variant="link">
-              <Link href={backButton.href}>
+            <Link href={backButton.href}>
+              <Button variant="link">
                 <ArrowLeft />
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           )}
           <h1 className="text-2xl font-bold">{pageTitle}</h1>
         </div>
-        <div className="flex gap-2">{actions}</div>
+        <div className="flex gap-2">
+          {actions?.map((a) => <div className="w-48 truncate">{a}</div>)}
+        </div>
       </div>
       <Paper>{children}</Paper>
     </div>

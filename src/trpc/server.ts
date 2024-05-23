@@ -38,7 +38,7 @@ export const api = createTRPCProxyClient<typeof appRouter>({
     }),
     /**
      * Custom RSC link that lets us invoke procedures without using http requests. Since Server
-     * Components always run on the server, we can just call the procedure as a function.
+     * Components always run on the server, we can just call the protectedProcedure as a function.
      */
     () =>
       ({ op }) =>

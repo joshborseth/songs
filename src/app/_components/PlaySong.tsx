@@ -3,11 +3,11 @@
 import { PlaySquare } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { type songs } from "~/server/db/schema";
-import { useSongs } from "../stores/song";
+import { useAppState } from "../stores/app";
 import { TooltipTrigger } from "~/components/ui/tooltip";
 
 export const PlaySong = ({ song }: { song: typeof songs.$inferSelect }) => {
-  const setSong = useSongs((s) => s.setSong);
+  const setSong = useAppState((s) => s.setSong);
   return (
     <TooltipTrigger asChild>
       <Button onClick={() => setSong(song)} size="icon" variant="ghost">

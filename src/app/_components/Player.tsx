@@ -3,13 +3,13 @@
 import AudioPlayer from "react-h5-audio-player";
 import "./styles.css";
 
-import { useSongs } from "../stores/song";
+import { useAppState } from "../stores/app";
 import Image from "next/image";
 import { useRef } from "react";
 import { prominent } from "color.js";
 
 export const Player = () => {
-  const { song, setSong, queue, setColor } = useSongs();
+  const { song, setSong, queue, setColor } = useAppState();
 
   const ref = useRef<HTMLImageElement | null>(null);
 

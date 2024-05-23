@@ -1,4 +1,3 @@
-import { db } from "~/server/db";
 import { DateTime } from "luxon";
 import {
   Table,
@@ -22,16 +21,21 @@ import {
 } from "~/components/ui/tooltip";
 import { Suspense } from "react";
 import { Loading } from "../_components/Loading";
+import { CreatePlaylist } from "../_components/CreatePlaylist";
+import { api } from "~/trpc/server";
+
+export const metadata = {
+  title: "Playlists",
+  description: "Organize your music into playlists.",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
+};
 
 export default async function Page() {
-  const playlists = await db.query.playlists.findMany({
-    with: {
-      playlistSongs: true,
-    },
-  });
+  const playlists = await api.playlist.list.query();
+
   return (
     <div className="h-full w-full">
-      <PageWrapper pageTitle="Playlists">
+      <PageWrapper pageTitle="Playlists" actions={[<CreatePlaylist />]}>
         <Table>
           <TableHeader>
             <TableRow>
@@ -72,11 +76,11 @@ export default async function Page() {
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Button size="icon" variant="ghost">
-                                <Link href={`/playlists/${p.id}`}>
+                              <Link href={`/playlists/${p.id}`}>
+                                <Button size="icon" variant="ghost">
                                   <Edit size={18} />
-                                </Link>
-                              </Button>
+                                </Button>
+                              </Link>
                             </TooltipTrigger>
                             <TooltipContent>
                               <p>Edit Playlist</p>

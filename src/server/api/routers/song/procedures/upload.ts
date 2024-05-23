@@ -1,13 +1,13 @@
 import ytdl from "ytdl-core";
 import { z } from "zod";
-import { publicProcedure } from "~/server/api/trpc";
+import { protectedProcedure } from "~/server/api/trpc";
 import { songs } from "~/server/db/schema";
 import { S3 } from "@aws-sdk/client-s3";
 import { env } from "~/env";
 import { randomUUID } from "crypto";
 import { Upload } from "@aws-sdk/lib-storage";
 
-export const upload = publicProcedure
+export const upload = protectedProcedure
   .input(z.object({ ytUrl: z.string() }))
   .mutation(async ({ ctx, input }) => {
     const audioReadableStream = ytdl(input.ytUrl, {
@@ -42,5 +42,6 @@ export const upload = publicProcedure
         env.S3_REGION
       }.amazonaws.com/${encodeURI(songName)}`,
       thumbnailUrl: songInfo.videoDetails.thumbnails[0]?.url ?? "",
+      userId: ctx.auth.userId,
     });
   });

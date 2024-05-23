@@ -1,5 +1,6 @@
 "use client";
 import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
@@ -23,6 +24,7 @@ export const UploadSong = () => {
   const { toast } = useToast();
   const utils = api.useUtils();
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -59,6 +61,7 @@ export const UploadSong = () => {
                   setYtUrl("");
                   setOpen(false);
                   void utils.song.list.invalidate();
+                  router.refresh();
                 },
                 onError: (err) => {
                   toast({

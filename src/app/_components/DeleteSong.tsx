@@ -13,12 +13,14 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog";
 import { api } from "~/trpc/react";
-import { useSongs } from "../stores/song";
+import { useAppState } from "../stores/app";
 import { TooltipTrigger } from "~/components/ui/tooltip";
+import { useRouter } from "next/navigation";
 
 export const DeleteSong = ({ songId }: { songId: number }) => {
   const utils = api.useUtils();
-  const { removeSongFromQueue } = useSongs();
+  const { removeSongFromQueue, setColor } = useAppState();
+  const router = useRouter();
   const { mutate } = api.song.deleteSong.useMutation({
     async onMutate(deletedSong) {
       // Cancel outgoing fetches (so they don't overwrite our optimistic update)
@@ -27,14 +29,15 @@ export const DeleteSong = ({ songId }: { songId: number }) => {
       // Get the data from the queryCache
       const prevData = utils.song.list.getData();
 
-      utils.song.list.setData({ limit: 25 }, (old) => {
+      utils.song.list.setData(undefined, (old) => {
         if (!old) return old;
         return {
           ...old,
-          data: old.data?.filter((song) => song.id !== deletedSong.songId),
+          data: old?.filter((song) => song.id !== deletedSong.songId),
         };
       });
       removeSongFromQueue(deletedSong.songId);
+      setColor(null);
       setOpen(false);
       // Return the previous data so we can revert if something goes wrong
       return { prevData };
@@ -42,11 +45,12 @@ export const DeleteSong = ({ songId }: { songId: number }) => {
     onError(_err, _newPost, ctx) {
       if (!ctx) return;
       // If the mutation fails, use the context-value from onMutate
-      utils.song.list.setData({ limit: 25 }, ctx.prevData);
+      utils.song.list.setData(undefined, ctx.prevData);
     },
     onSettled() {
       // Sync with server once mutation has settled
       void utils.song.list.invalidate();
+      router.refresh();
     },
   });
 

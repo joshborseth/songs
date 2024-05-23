@@ -1,13 +1,13 @@
 "use client";
 
-import { useSongs } from "../stores/song";
-
+import { useAppState } from "../stores/app";
+//TODO: add the other two colors to this gradient
 export const Color = () => {
-  const color = useSongs((s) => s.color);
+  const color = useAppState((s) => s.color);
   if (!color) return null;
   return (
     <div
-      className="h-full w-full saturate-100"
+      className="h-32 w-full"
       style={{
         background: `linear-gradient(to top, rgba(${color.join(
           ",",

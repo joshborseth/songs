@@ -1,6 +1,6 @@
 "use client";
 
-import { useSongs } from "~/app/stores/song";
+import { useAppState } from "~/app/stores/app";
 import { Button } from "~/components/ui/button";
 import { type songs } from "~/server/db/schema";
 import { SongName } from "../SongName";
@@ -13,12 +13,12 @@ import {
 import { Trash2 } from "lucide-react";
 
 export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
-  const songState = useSongs();
+  const { setSong, removeSongFromQueue } = useAppState();
   return (
     <ContextMenu>
       <ContextMenuTrigger>
         <Button
-          onClick={() => songState.setSong(song)}
+          onClick={() => setSong(song)}
           variant="ghost"
           className="flex w-full justify-start gap-3"
         >
@@ -27,7 +27,7 @@ export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem
-          onClick={() => songState.removeSongFromQueue(song.id)}
+          onClick={() => removeSongFromQueue(song.id)}
           className="flex gap-2"
         >
           <Trash2 size={16} /> <span>Remove from Queue</span>

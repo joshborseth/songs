@@ -3,7 +3,7 @@
 import { PlusSquare } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { type songs } from "~/server/db/schema";
-import { useSongs } from "../stores/song";
+import { useAppState } from "../stores/app";
 import { TooltipTrigger } from "~/components/ui/tooltip";
 
 export const AddSongToQueue = ({
@@ -11,7 +11,7 @@ export const AddSongToQueue = ({
 }: {
   song: typeof songs.$inferSelect;
 }) => {
-  const addSongToQueue = useSongs((s) => s.addSongToQueue);
+  const addSongToQueue = useAppState((s) => s.addSongToQueue);
   return (
     <TooltipTrigger asChild>
       <Button size="icon" onClick={() => addSongToQueue(song)} variant="ghost">

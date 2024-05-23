@@ -10,6 +10,7 @@ export const songs = sqliteTable("songs", {
   updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`),
   thumbnailUrl: text("thumbnailUrl", { length: 256 }).notNull(),
   s3Url: text("s3Url", { length: 256 }).notNull(),
+  userId: text("userId", { length: 256 }).notNull(),
 });
 
 export const playlists = sqliteTable("playlists", {
@@ -19,6 +20,7 @@ export const playlists = sqliteTable("playlists", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`),
+  userId: text("userId", { length: 256 }).notNull(),
 });
 
 export const playlistSongs = sqliteTable("playlistSongs", {

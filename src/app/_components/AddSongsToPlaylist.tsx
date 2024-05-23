@@ -1,8 +1,7 @@
 "use client";
 
 import { Check, Plus } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useIntersectionObserver } from "usehooks-ts";
+import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -22,45 +21,11 @@ import { useRouter } from "next/navigation";
 
 export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
   const [open, setOpen] = useState(false);
-  const {
-    data: songsRaw,
-    isLoading,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = api.playlist.listSongsToAdd.useInfiniteQuery(
-    {
-      limit: 25,
-      playlistId,
-    },
-    {
-      // the cursor from where to start fetching the posts
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-    },
-  );
-
-  // a ref to the viewport
-  const viewportRef = useRef<HTMLDivElement>(null);
-  // a ref to the last post element
-  const { isIntersecting, ref } = useIntersectionObserver({
-    threshold: 1,
-    root: viewportRef.current,
+  const utils = api.useUtils();
+  const { data, isLoading } = api.playlist.listSongsToAdd.useQuery({
+    playlistId,
   });
 
-  useEffect(() => {
-    // if the user reaches the bottom of the page, and there are more songs to fetch, fetch them
-    if (
-      isIntersecting &&
-      songsRaw?.pages.length &&
-      songsRaw?.pages[songsRaw.pages.length - 1]?.nextCursor
-    )
-      void fetchNextPage();
-  }, [isIntersecting]);
-
-  // memoize the songs, so that they don't get re-rendered on every re-render
-  const songs = useMemo(
-    () => songsRaw?.pages.flatMap((page) => page.data) ?? [],
-    [songsRaw],
-  );
   const { toast } = useToast();
 
   const [selectedSongs, setSelectedSongs] = useState<number[]>([]);
@@ -81,6 +46,7 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
       setSelectedSongs([]);
       setOpen(false);
       router.refresh();
+      void utils.playlist.listSongsToAdd.invalidate();
     },
   });
 
@@ -106,45 +72,45 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
         <Separator className="my-2" />
         <ScrollArea>
           <div className="flex h-52 w-full flex-col gap-3">
-            {isLoading ? <Loading /> : null}
-            {songs.map((s, i) => {
-              return (
-                <div
-                  className="flex items-center justify-between gap-2"
-                  key={s.id}
-                  ref={i === songs.length - 1 ? ref : undefined}
-                >
-                  <span className="text-sm font-medium">{s.name}</span>
-                  {selectedSongs.includes(s.id) ? (
-                    <Button
-                      onClick={() => {
-                        setSelectedSongs((prev) => {
-                          return prev.filter((id) => id !== s.id);
-                        });
-                      }}
-                      variant="secondary"
-                      className="bg-green-100 text-green-900 hover:bg-green-100/90"
-                      size="icon"
-                    >
-                      <Check size={16} />
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() =>
-                        setSelectedSongs((prev) => {
-                          return [...prev, s.id];
-                        })
-                      }
-                      variant="secondary"
-                      size="icon"
-                    >
-                      <Plus size={16} />
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
-            {isFetchingNextPage && <Loading />}
+            {isLoading && <Loading />}
+            {data &&
+              Boolean(data?.length) &&
+              data.map((s) => {
+                return (
+                  <div
+                    className="flex items-center justify-between gap-2"
+                    key={s.id}
+                  >
+                    <span className="text-sm font-medium">{s.name}</span>
+                    {selectedSongs.includes(s.id) ? (
+                      <Button
+                        onClick={() => {
+                          setSelectedSongs((prev) => {
+                            return prev.filter((id) => id !== s.id);
+                          });
+                        }}
+                        variant="secondary"
+                        className="bg-green-100 text-green-900 hover:bg-green-100/90"
+                        size="icon"
+                      >
+                        <Check size={16} />
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() =>
+                          setSelectedSongs((prev) => {
+                            return [...prev, s.id];
+                          })
+                        }
+                        variant="secondary"
+                        size="icon"
+                      >
+                        <Plus size={16} />
+                      </Button>
+                    )}
+                  </div>
+                );
+              })}
           </div>
         </ScrollArea>
         <DialogFooter className="items-center gap-3 sm:justify-between">

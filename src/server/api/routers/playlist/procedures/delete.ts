@@ -1,10 +1,25 @@
 import { z } from "zod";
-import { publicProcedure } from "../../../trpc";
+import { protectedProcedure } from "../../../trpc";
 import { playlists } from "~/server/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
-export const deletePlaylist = publicProcedure
+export const deletePlaylist = protectedProcedure
   .input(z.object({ playlistId: z.number() }))
   .mutation(async ({ ctx, input }) => {
-    await ctx.db.delete(playlists).where(eq(playlists.id, input.playlistId));
+    const findPlaylist = await ctx.db.query.playlists.findFirst({
+      where: and(
+        eq(playlists.id, input.playlistId),
+        eq(playlists.userId, ctx.auth.userId),
+      ),
+    });
+
+    if (!findPlaylist) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "Playlist not found",
+      });
+    }
+
+    await ctx.db.delete(playlists).where(eq(playlists.id, findPlaylist.id));
   });
