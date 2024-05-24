@@ -37,7 +37,6 @@
     "@trpc/server": "^10.43.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "color.js": "^1.2.0",
     "drizzle-orm": "0.30.8",
     "embla-carousel-react": "8.0.0-rc19",
     "lucide-react": "^0.312.0",

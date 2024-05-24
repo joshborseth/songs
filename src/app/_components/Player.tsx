@@ -5,13 +5,9 @@ import "./styles.css";
 
 import { useAppState } from "../stores/app";
 import Image from "next/image";
-import { useRef } from "react";
-import { prominent } from "color.js";
 
 export const Player = () => {
-  const { song, setSong, queue, setColors } = useAppState();
-
-  const ref = useRef<HTMLImageElement | null>(null);
+  const { song, setSong, queue } = useAppState();
 
   if (!song || !queue) return null;
 
@@ -44,18 +40,8 @@ export const Player = () => {
               src={song.thumbnailUrl}
               width={40}
               priority
-              ref={ref}
               height={40}
               alt={song.name}
-              onLoad={async () => {
-                if (!ref.current?.src) return;
-                const colors = (await prominent(ref.current.src)) as
-                  | [number[], number[], number[]]
-                  | string;
-                if (!colors || typeof colors === "string") return;
-                setColors(colors);
-                // TODO: figure out where to put these colors
-              }}
               className="h-20 w-20 rounded-xl object-cover p-2"
             />
             <span className="mx-auto w-[90%] text-center text-lg font-bold">

@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 
 export const DeleteSong = ({ songId }: { songId: number }) => {
   const utils = api.useUtils();
-  const { removeSongFromQueue, setColor } = useAppState();
+  const removeSongFromQueue = useAppState((s) => s.removeSongFromQueue);
   const router = useRouter();
   const { mutate } = api.song.deleteSong.useMutation({
     async onMutate(deletedSong) {
@@ -37,7 +37,6 @@ export const DeleteSong = ({ songId }: { songId: number }) => {
         };
       });
       removeSongFromQueue(deletedSong.songId);
-      setColor(null);
       setOpen(false);
       // Return the previous data so we can revert if something goes wrong
       return { prevData };

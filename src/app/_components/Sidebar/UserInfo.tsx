@@ -8,11 +8,10 @@ import { Skeleton } from "~/components/ui/skeleton";
 
 export const UserInfo = () => {
   const { user, isLoaded } = useUser();
-  const { clearQueue, setColors, setSong } = useAppState();
+  const { clearQueue, setSong } = useAppState();
 
   const onSignOutClearLocalStorage = () => {
     clearQueue();
-    setColors(null);
     setSong(null);
   };
   return (

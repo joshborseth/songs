@@ -9,8 +9,7 @@ interface AppState {
   removeSongFromQueue: (songId: number) => void;
   clearQueue: () => void;
   addSongToQueue: (song: typeof songs.$inferSelect) => void;
-  colors: [number[], number[], number[]] | null;
-  setColors: (color: [number[], number[], number[]] | null) => void;
+
   bulkAddSongsToQueue: (songsToAdd: (typeof songs.$inferSelect)[]) => void;
 }
 
@@ -61,8 +60,6 @@ export const useAppState = create<AppState>()(
           }
           return { queue: unique([...prev.queue, ...songsToAdd]) };
         }),
-      colors: null,
-      setColors: (colors) => set({ colors }),
     }),
     {
       name: "app-store",
