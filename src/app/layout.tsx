@@ -42,7 +42,7 @@ export default async function RootLayout({
               </h1>
               <p>
                 This app is not intended for mobile use due to incompatibility
-                with the safari browser.
+                reasons.
               </p>
               <p>We have a mobile app coming soon!</p>
             </div>
