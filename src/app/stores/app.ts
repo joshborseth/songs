@@ -9,7 +9,6 @@ interface AppState {
   removeSongFromQueue: (songId: number) => void;
   clearQueue: () => void;
   addSongToQueue: (song: typeof songs.$inferSelect) => void;
-
   bulkAddSongsToQueue: (songsToAdd: (typeof songs.$inferSelect)[]) => void;
 }
 
