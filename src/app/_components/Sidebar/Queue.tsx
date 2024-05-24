@@ -62,11 +62,6 @@ export const Queue = () => {
                 ))
               : null}
           </div>
-          {Boolean(queue?.length) && (
-            <p className="pl-3 pt-3 text-xs">
-              Right click a song to remove it from the queue.
-            </p>
-          )}
         </ScrollArea>
       </div>
     </>

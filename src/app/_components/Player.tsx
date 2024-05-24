@@ -54,6 +54,7 @@ export const Player = () => {
                   | string;
                 if (!colors || typeof colors === "string") return;
                 setColors(colors);
+                // TODO: figure out where to put these colors
               }}
               className="h-20 w-20 rounded-xl object-cover p-2"
             />

@@ -1,13 +1,20 @@
 "use client";
 
 import { SignOutButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { useAppState } from "~/app/stores/app";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
 
 export const UserInfo = () => {
   const { user, isLoaded } = useUser();
+  const { clearQueue, setColors, setSong } = useAppState();
 
+  const onSignOutClearLocalStorage = () => {
+    clearQueue();
+    setColors(null);
+    setSong(null);
+  };
   return (
     <div className="flex flex-grow flex-col justify-end gap-4 px-3">
       <h2 className="text-lg font-bold">Account</h2>
@@ -36,7 +43,9 @@ export const UserInfo = () => {
         <>
           <SignedIn>
             <SignOutButton>
-              <Button variant="outline">Sign Out</Button>
+              <Button onClick={onSignOutClearLocalStorage} variant="outline">
+                Sign Out
+              </Button>
             </SignOutButton>
           </SignedIn>
           <SignedOut>
