@@ -6,6 +6,7 @@ import { AddSongsToPlaylist } from "~/app/_components/AddSongsToPlaylist";
 import { Suspense } from "react";
 import { Loading } from "~/app/_components/Loading";
 import { SongsTable } from "~/app/_components/SongsTable/SongsTable";
+import { PlayPlaylist } from "~/app/_components/PlayPlaylist";
 
 //TODO: catch errors and show error page
 export default async function Page({ params }: { params: { id: string } }) {
@@ -31,7 +32,10 @@ export default async function Page({ params }: { params: { id: string } }) {
         backButton={{
           href: "/playlists",
         }}
-        actions={[<AddSongsToPlaylist playlistId={Number(params.id)} />]}
+        actions={[
+          <PlayPlaylist songsFromPlaylist={songs} />,
+          <AddSongsToPlaylist playlistId={Number(params.id)} />,
+        ]}
       >
         <Suspense fallback={<Loading />}>
           <SongsTable data={songs} />

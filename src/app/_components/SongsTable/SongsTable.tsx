@@ -29,7 +29,6 @@ export const SongsTable = ({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-  //TODO: if song is playing from playlist it shouldn't show the same way that it does in the songs page
   return (
     <div className="rounded-md">
       <Table>

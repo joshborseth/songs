@@ -53,7 +53,11 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button disabled={!data?.length} className="px-10">
+        <Button
+          disabled={!data?.length}
+          variant="outline"
+          className="border px-10"
+        >
           <div className="-ml-3 flex items-center gap-2">
             <Plus size={24} />
             <span>Add Songs</span>

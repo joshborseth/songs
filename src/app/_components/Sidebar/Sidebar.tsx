@@ -10,7 +10,7 @@ import { NavLink } from "./NavLink";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-full">
+    <div className="hidden h-full lg:flex">
       <div
         className={cn(
           "hidden h-full w-72 flex-col gap-2 bg-white p-4 text-gray-900 shadow-2xl lg:flex",
