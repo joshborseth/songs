@@ -1,9 +1,8 @@
-import { api } from "~/trpc/server";
 import { PageWrapper } from "../_components/PageWrapper";
 import { UploadSong } from "../_components/UploadSong";
-import { SongsTable } from "../_components/SongsTable/SongsTable";
 import { Suspense } from "react";
 import { Loading } from "../_components/Loading";
+import { Songs } from "./component";
 
 export const metadata = {
   title: "Songs",
@@ -11,13 +10,12 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default async function Page() {
-  const songs = await api.song.list.query();
+export default function Page() {
   return (
     <div className="h-full w-full">
       <PageWrapper pageTitle="Songs" actions={[<UploadSong />]}>
         <Suspense fallback={<Loading />}>
-          <SongsTable data={songs} />
+          <Songs />
         </Suspense>
       </PageWrapper>
     </div>
