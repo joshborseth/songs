@@ -10,6 +10,8 @@ interface AppState {
   clearQueue: () => void;
   addSongToQueue: (song: typeof songs.$inferSelect) => void;
   bulkAddSongsToQueue: (songsToAdd: (typeof songs.$inferSelect)[]) => void;
+  volume: number;
+  setVolume: (volume: number) => void;
 }
 
 export const useAppState = create<AppState>()(
@@ -59,6 +61,8 @@ export const useAppState = create<AppState>()(
           }
           return { queue: unique([...prev.queue, ...songsToAdd]) };
         }),
+      volume: 0.5,
+      setVolume: (volume) => set({ volume }),
     }),
     {
       name: "app-store",

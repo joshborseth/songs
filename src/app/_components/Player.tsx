@@ -5,9 +5,15 @@ import "./styles.css";
 
 import { useAppState } from "../stores/app";
 import Image from "next/image";
+import { useRef } from "react";
 
 export const Player = () => {
-  const { song, setSong, queue } = useAppState();
+  const { song, setSong, queue, volume, setVolume } = useAppState();
+  //sorry
+  // eslint-disable-next-line
+  const audioPlayerRef = useRef<any>(null);
+
+  const prevVolume = useRef<number | null>(null);
 
   if (!song || !queue) return null;
 
@@ -31,6 +37,8 @@ export const Player = () => {
     setSong(queue[queue.indexOf(song) - 1]!);
   };
 
+  const round = (num: number) => Math.round(num * 10) / 10;
+
   return (
     <div className="flex w-full justify-end">
       <div className="flex w-full flex-col items-center bg-white py-4">
@@ -52,12 +60,22 @@ export const Player = () => {
             src={song.s3Url}
             autoPlay={false}
             autoPlayAfterSrcChange={true}
-            hasDefaultKeyBindings={true}
+            onVolumeChange={() => {
+              const changedVolume = round(
+                // eslint-disable-next-line
+                audioPlayerRef?.current?.audio?.current?.volume ?? 0.5,
+              );
+              if (prevVolume.current === changedVolume) return;
+              prevVolume.current = changedVolume;
+              setVolume(changedVolume);
+            }}
+            volume={volume}
             onClickNext={handleNext}
             onClickPrevious={handlePrev}
             showSkipControls={true}
             showJumpControls={false}
             onEnded={handleNext}
+            ref={audioPlayerRef}
             showDownloadProgress={true}
             showFilledVolume={true}
             showFilledProgress={true}
