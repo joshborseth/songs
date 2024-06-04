@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { protectedProcedure } from "../../../trpc";
 import { playlistSongs, songs } from "~/server/db/schema";
-import { eq, notInArray } from "drizzle-orm";
+import { and, eq, notInArray } from "drizzle-orm";
 
 export const listSongsToAdd = protectedProcedure
   .input(
@@ -20,7 +20,10 @@ export const listSongsToAdd = protectedProcedure
 
     return await ctx.db.query.songs.findMany({
       where: songsAlreadyAddedIds.length
-        ? notInArray(songs.id, songsAlreadyAddedIds)
-        : undefined,
+        ? and(
+            notInArray(songs.id, songsAlreadyAddedIds),
+            eq(songs.userId, ctx.auth.userId),
+          )
+        : eq(songs.userId, ctx.auth.userId),
     });
   });
