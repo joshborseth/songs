@@ -3,6 +3,7 @@ import { AddSongsToPlaylist } from "~/app/_components/AddSongsToPlaylist";
 import { PageWrapper } from "~/app/_components/PageWrapper";
 import { PlayPlaylist } from "~/app/_components/PlayPlaylist";
 import { SongsTable } from "~/app/_components/SongsTable/SongsTable";
+import { PlaylistActions } from "~/app/_components/SongsTable/actions";
 import { db } from "~/server/db";
 import { playlists } from "~/server/db/schema";
 
@@ -32,7 +33,7 @@ export async function Component({ id }: { id: number }) {
         <AddSongsToPlaylist playlistId={id} />,
       ]}
     >
-      <SongsTable data={songs} />
+      <SongsTable Actions={PlaylistActions} data={songs} />
     </PageWrapper>
   );
 }

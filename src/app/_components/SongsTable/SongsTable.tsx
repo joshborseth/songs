@@ -16,17 +16,20 @@ import {
 } from "~/components/ui/table";
 import { columns } from "./columns";
 
-import { Fragment } from "react";
+import { type FC, Fragment } from "react";
 import { type songs } from "~/server/db/schema";
+import { type ActionProps } from "./actions";
 
 export const SongsTable = ({
   data,
+  Actions,
 }: {
   data: (typeof songs.$inferSelect)[];
+  Actions: FC<ActionProps>;
 }) => {
   const table = useReactTable({
     data,
-    columns,
+    columns: columns({ Actions }),
     getCoreRowModel: getCoreRowModel(),
   });
   return (
