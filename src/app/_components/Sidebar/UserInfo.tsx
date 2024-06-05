@@ -25,7 +25,7 @@ export const UserInfo = () => {
         {isLoaded ? (
           <>
             <SignedIn>
-              <h3 className="w-28 truncate text-sm">
+              <h3 className="truncate text-sm">
                 {user?.firstName ?? user?.primaryEmailAddress?.emailAddress}
               </h3>
             </SignedIn>

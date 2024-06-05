@@ -25,7 +25,7 @@ export const MobileNav = () => {
           </Button>
         </SheetTrigger>
         <SheetContent
-          className="flex h-screen w-52 flex-col gap-2 p-2"
+          className="flex h-screen w-60 flex-col gap-2 p-2"
           side="left"
         >
           <SheetTitle>

@@ -15,9 +15,7 @@ export const columns: ({
   {
     accessorKey: "name",
     header: "Name",
-    cell: ({ cell }) => {
-      return <SongName song={cell.getContext().row?.original} />;
-    },
+    cell: ({ row }) => <SongName song={row.original} />,
   },
   {
     accessorKey: "createdAt",
@@ -26,12 +24,15 @@ export const columns: ({
       row?.createdAt
         ? DateTime.fromSQL(row.createdAt).toFormat("LLL dd yyyy")
         : "N/A",
+    cell: ({ row }) => (
+      <div className="w-24">
+        <span>{row.getValue("createdAt")}</span>
+      </div>
+    ),
   },
   {
     accessorKey: "actions",
     header: "Actions",
-    cell: ({ row }) => {
-      return <Actions song={row.original} />;
-    },
+    cell: ({ row }) => <Actions song={row.original} />,
   },
 ];

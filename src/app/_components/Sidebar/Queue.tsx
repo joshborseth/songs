@@ -1,6 +1,5 @@
 "use client";
 
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { SongButton } from "./SongButton";
 import { useAppState } from "~/app/stores/app";
 import { Button } from "~/components/ui/button";
@@ -14,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 export const Queue = () => {
   const { queue, clearQueue } = useAppState();
@@ -54,11 +54,7 @@ export const Queue = () => {
         </h3>
         <ScrollArea className="h-full py-3">
           {queue?.length
-            ? queue.map((song) => (
-                <div key={song.id}>
-                  <SongButton key={song.id} song={song} />
-                </div>
-              ))
+            ? queue.map((song) => <SongButton key={song.id} song={song} />)
             : null}
         </ScrollArea>
       </div>

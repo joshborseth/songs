@@ -38,9 +38,7 @@ export const PageWrapper = ({
             <h1 className="pl-1 text-xl font-bold lg:text-2xl">{pageTitle}</h1>
           </div>
           <div className="hidden gap-2 lg:flex">
-            {actions?.map((a) => (
-              <div className="w-36 truncate lg:w-48">{a}</div>
-            ))}
+            {actions?.map((a) => <div className="w-32 lg:w-48">{a}</div>)}
           </div>
           <div className="block lg:hidden">
             <Popover>

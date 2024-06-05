@@ -19,7 +19,6 @@ import { columns } from "./columns";
 import { type FC, Fragment } from "react";
 import { type songs } from "~/server/db/schema";
 import { type ActionProps } from "./actions";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { SongName } from "../SongName";
 
 export const SongsTable = ({
@@ -89,8 +88,7 @@ export const SongsTable = ({
         </Table>
       </div>
 
-      {/* <ScrollArea className="block lg:hidden"> */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 lg:hidden">
         {data.map((s) => {
           return (
             <div className="-pl-2 flex justify-between" key={s.id}>
@@ -105,7 +103,6 @@ export const SongsTable = ({
           </div>
         )}
       </div>
-      {/* </ScrollArea> */}
     </>
   );
 };

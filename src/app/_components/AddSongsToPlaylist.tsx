@@ -89,7 +89,9 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
                     className="flex items-center justify-between gap-2"
                     key={s.id}
                   >
-                    <span className="w-52 text-sm font-medium">{s.name}</span>
+                    <span className="truncate text-sm font-medium">
+                      {s.name}
+                    </span>
                     {selectedSongs.includes(s.id) ? (
                       <Button
                         onClick={() => {
@@ -98,7 +100,7 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
                           });
                         }}
                         variant="secondary"
-                        className="bg-green-100 text-green-900 hover:bg-green-100/90"
+                        className="h-auto w-max bg-green-100 p-3 text-green-900 hover:bg-green-100/90"
                         size="icon"
                       >
                         <Check size={16} />
@@ -112,6 +114,7 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
                         }
                         variant="secondary"
                         size="icon"
+                        className="h-auto w-max p-3"
                       >
                         <Plus size={16} />
                       </Button>
