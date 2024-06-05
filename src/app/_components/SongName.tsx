@@ -8,15 +8,15 @@ import { cn } from "~/lib/utils";
 
 export const SongName = ({
   song,
-  truncateText,
+  hideImage,
 }: {
   song: typeof songs.$inferSelect;
-  truncateText?: boolean;
+  hideImage?: boolean;
 }) => {
   const currentSong = useAppState((s) => s.song);
   const isPlaying = currentSong?.id === song.id;
   return (
-    <div className="flex w-full items-center justify-start gap-3">
+    <div className="flex w-full min-w-0 items-center justify-start gap-3">
       {isPlaying ? (
         <AudioLines
           size={18}
@@ -26,7 +26,7 @@ export const SongName = ({
       ) : (
         <Music size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
       )}
-      {!truncateText && (
+      {!hideImage && (
         <Image
           src={song.thumbnailUrl}
           width={40}
@@ -39,8 +39,7 @@ export const SongName = ({
       <span
         className={cn(
           isPlaying && "font-bold",
-          truncateText && "w-24 truncate",
-          "w-36 text-left text-xs lg:text-sm",
+          "flex-[1] truncate text-left text-xs lg:text-sm",
         )}
       >
         {song.name}

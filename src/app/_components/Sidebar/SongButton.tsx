@@ -18,7 +18,7 @@ export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
     <ContextMenu>
       <ContextMenuTrigger>
         <Button onClick={() => setSong(song)} variant="ghost">
-          <SongName song={song} truncateText />
+          <SongName song={song} hideImage />
         </Button>
       </ContextMenuTrigger>
       <ContextMenuContent>

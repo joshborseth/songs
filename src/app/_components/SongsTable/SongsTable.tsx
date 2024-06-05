@@ -89,23 +89,23 @@ export const SongsTable = ({
         </Table>
       </div>
 
-      <ScrollArea className="block lg:hidden">
-        <div className="flex flex-col gap-2">
-          {data.map((s) => {
-            return (
-              <div className="-pl-2 flex justify-between" key={s.id}>
-                <SongName song={s} truncateText />
-                <Actions song={s} />
-              </div>
-            );
-          })}
-          {!data.length && (
-            <div className="flex w-full justify-center p-4">
-              <span className="text-xs">No results.</span>
+      {/* <ScrollArea className="block lg:hidden"> */}
+      <div className="flex flex-col gap-2">
+        {data.map((s) => {
+          return (
+            <div className="-pl-2 flex justify-between" key={s.id}>
+              <SongName song={s} hideImage />
+              <Actions song={s} />
             </div>
-          )}
-        </div>
-      </ScrollArea>
+          );
+        })}
+        {!data.length && (
+          <div className="flex w-full justify-center p-4">
+            <span className="text-xs">No results.</span>
+          </div>
+        )}
+      </div>
+      {/* </ScrollArea> */}
     </>
   );
 };
