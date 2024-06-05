@@ -8,12 +8,11 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 import { CreatePlaylist } from "../CreatePlaylist";
-import { List, ListMusic } from "lucide-react";
 import { UploadSong } from "../UploadSong";
 import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
 import { Separator } from "~/components/ui/separator";
-import { NavLink } from "./NavLink";
+import { NavLinks } from "./navigation";
 
 export const MobileNav = () => {
   return (
@@ -32,23 +31,8 @@ export const MobileNav = () => {
             <p className="px-3 text-2xl font-bold">Music</p>
           </SheetTitle>
           <Separator />
-          <nav>
-            <ul>
-              <NavLink
-                href="/playlists"
-                icon={<List size={18} />}
-                activeIcon={<List size={18} strokeWidth={3} />}
-                label="Playlists"
-              />
+          <NavLinks />
 
-              <NavLink
-                href="/songs"
-                icon={<ListMusic size={18} />}
-                activeIcon={<ListMusic size={18} strokeWidth={3} />}
-                label="Songs"
-              />
-            </ul>
-          </nav>
           <Separator className="mb-4" />
           <CreatePlaylist />
           <UploadSong />

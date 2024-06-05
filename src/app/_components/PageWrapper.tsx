@@ -15,6 +15,7 @@ export const PageWrapper = ({
   pageTitle,
   backButton,
   actions,
+  height = "scroll",
 }: {
   children: ReactNode;
   pageTitle: string;
@@ -22,6 +23,7 @@ export const PageWrapper = ({
     href: string;
   };
   actions?: ReactNode[];
+  height?: "scroll" | "full";
 }) => {
   return (
     <>
@@ -53,7 +55,7 @@ export const PageWrapper = ({
             </Popover>
           </div>
         </div>
-        <Paper>{children}</Paper>
+        <Paper height={height}>{children}</Paper>
       </div>
     </>
   );
