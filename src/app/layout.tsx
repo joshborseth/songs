@@ -32,20 +32,8 @@ export default async function RootLayout({
           className={`font-sans ${inter.variable} h-[calc(100dvh)] overflow-hidden`}
         >
           <TRPCReactProvider cookies={cookies().toString()}>
-            <>
-              <Sidebar>{children}</Sidebar>
-              <Toaster />
-            </>
-            <div className="flex h-full flex-col items-center justify-center gap-4 p-4 text-center lg:hidden">
-              <h1 className="text-3xl font-bold">
-                Sorry, we have some bad news.
-              </h1>
-              <p>
-                This app is not intended for mobile use due to incompatibility
-                reasons.
-              </p>
-              <p>We have a mobile app coming soon!</p>
-            </div>
+            <Sidebar>{children}</Sidebar>
+            <Toaster />
           </TRPCReactProvider>
         </body>
       </html>

@@ -89,7 +89,7 @@ export const AddSongsToPlaylist = ({ playlistId }: { playlistId: number }) => {
                     className="flex items-center justify-between gap-2"
                     key={s.id}
                   >
-                    <span className="text-sm font-medium">{s.name}</span>
+                    <span className="w-52 text-sm font-medium">{s.name}</span>
                     {selectedSongs.includes(s.id) ? (
                       <Button
                         onClick={() => {

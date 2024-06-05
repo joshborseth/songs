@@ -22,7 +22,7 @@ const BaseActions = ({
   moreActions?: { tooltipContent: string; action: ReactNode }[];
 }) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex lg:gap-2">
       <TooltipProvider>
         <Tooltip>
           <PlaySong song={song} />
@@ -43,9 +43,9 @@ const BaseActions = ({
           </TooltipContent>
         </Tooltip>
         {!!moreActions?.length &&
-          moreActions.map((a) => {
+          moreActions.map((a, i) => {
             return (
-              <Tooltip>
+              <Tooltip key={i}>
                 {a.action}
                 <TooltipContent>{a.tooltipContent}</TooltipContent>
               </Tooltip>
@@ -56,6 +56,7 @@ const BaseActions = ({
   );
 };
 
+// can add more actions here for playlist views
 export const PlaylistActions = ({ song }: ActionProps) => {
   return (
     <BaseActions
@@ -70,6 +71,7 @@ export const PlaylistActions = ({ song }: ActionProps) => {
   );
 };
 
+// can add more actions here for song views
 export const SongActions = ({ song }: ActionProps) => {
   return <BaseActions song={song} />;
 };

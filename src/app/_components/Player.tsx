@@ -43,16 +43,17 @@ export const Player = () => {
     <div className="flex w-full justify-end">
       <div className="flex w-full flex-col items-center bg-white py-4">
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center gap-2 space-y-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             <Image
               src={song.thumbnailUrl}
               width={40}
               priority
               height={40}
               alt={song.name}
-              className="h-20 w-20 rounded-xl object-cover p-2"
+              className="h-16 w-16 rounded-xl object-cover p-2 lg:h-20 lg:w-20"
             />
-            <span className="mx-auto w-[90%] text-center text-lg font-bold">
+            <span className="mx-auto max-w-[12rem] truncate text-left text-base font-bold lg:max-w-none lg:text-center lg:text-lg">
+              {/* maybe add some sort of auto scroll title here animation style, check aceternity to see if they have something */}
               {song.name}
             </span>
           </div>

@@ -17,11 +17,7 @@ export const SongButton = ({ song }: { song: typeof songs.$inferSelect }) => {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <Button
-          onClick={() => setSong(song)}
-          variant="ghost"
-          className="flex w-full justify-start gap-3"
-        >
+        <Button onClick={() => setSong(song)} variant="ghost">
           <SongName song={song} truncateText />
         </Button>
       </ContextMenuTrigger>

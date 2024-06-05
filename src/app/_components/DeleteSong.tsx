@@ -59,7 +59,7 @@ export const DeleteSong = ({ songId }: { songId: number }) => {
       <DialogTrigger asChild>
         <TooltipTrigger asChild>
           <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
-            <Trash2 size={18} />
+            <Trash2 size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
           </Button>
         </TooltipTrigger>
       </DialogTrigger>

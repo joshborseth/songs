@@ -25,7 +25,7 @@ export const CreatePlaylist = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full">
+        <Button className="w-full text-xs lg:text-sm">
           <div className="-ml-3 flex items-center gap-2">
             <Plus size={24} />
             <span>New Playlist</span>

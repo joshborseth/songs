@@ -30,9 +30,9 @@ export const RemoveSongFromPlaylist = ({ songId }: { songId: number }) => {
         variant="ghost"
       >
         {removeSongMutation.isLoading ? (
-          <Loader2 size={18} />
+          <Loader2 size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
         ) : (
-          <ListMinus size={18} />
+          <ListMinus size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
         )}
       </Button>
     </TooltipTrigger>

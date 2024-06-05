@@ -19,6 +19,8 @@ import { columns } from "./columns";
 import { type FC, Fragment } from "react";
 import { type songs } from "~/server/db/schema";
 import { type ActionProps } from "./actions";
+import { ScrollArea } from "~/components/ui/scroll-area";
+import { SongName } from "../SongName";
 
 export const SongsTable = ({
   data,
@@ -33,57 +35,77 @@ export const SongsTable = ({
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div className="rounded-md">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
+    <>
+      <div className="hidden rounded-md lg:block">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <Fragment key={row.id}>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
                         )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <Fragment key={row.id}>
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </Fragment>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns({ Actions }).length}
+                  className="h-24 text-center"
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </Fragment>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell
-                colSpan={columns({ Actions }).length}
-                className="h-24 text-center"
-              >
-                No results.
-              </TableCell>
-            </TableRow>
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      <ScrollArea className="block lg:hidden">
+        <div className="flex flex-col gap-2">
+          {data.map((s) => {
+            return (
+              <div className="-pl-2 flex justify-between" key={s.id}>
+                <SongName song={s} truncateText />
+                <Actions song={s} />
+              </div>
+            );
+          })}
+          {!data.length && (
+            <div className="flex w-full justify-center p-4">
+              <span className="text-xs">No results.</span>
+            </div>
           )}
-        </TableBody>
-      </Table>
-    </div>
+        </div>
+      </ScrollArea>
+    </>
   );
 };

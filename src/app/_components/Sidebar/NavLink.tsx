@@ -24,7 +24,7 @@ export const NavLink = ({
         <Button
           variant="ghost"
           className={cn(
-            "flex w-full justify-start gap-3",
+            "flex w-full justify-start gap-3 text-xs lg:text-sm",
             isActive ? "font-bold" : "",
           )}
         >

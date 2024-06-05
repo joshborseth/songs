@@ -42,7 +42,11 @@ export const UserInfo = () => {
         <>
           <SignedIn>
             <SignOutButton>
-              <Button onClick={onSignOutClearLocalStorage} variant="outline">
+              <Button
+                className="w-full text-xs lg:text-sm"
+                onClick={onSignOutClearLocalStorage}
+                variant="outline"
+              >
                 Sign Out
               </Button>
             </SignOutButton>

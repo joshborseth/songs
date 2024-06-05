@@ -11,7 +11,7 @@ export const PlaySong = ({ song }: { song: typeof songs.$inferSelect }) => {
   return (
     <TooltipTrigger asChild>
       <Button onClick={() => setSong(song)} size="icon" variant="ghost">
-        <PlaySquare size={18} />
+        <PlaySquare size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
       </Button>
     </TooltipTrigger>
   );

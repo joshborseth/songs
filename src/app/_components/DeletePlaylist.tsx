@@ -46,7 +46,7 @@ export const DeletePlaylist = ({ playlistId }: { playlistId: number }) => {
         <TooltipTrigger asChild>
           <DialogTrigger asChild>
             <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
-              <Trash2 size={18} />
+              <Trash2 size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
             </Button>
           </DialogTrigger>
         </TooltipTrigger>

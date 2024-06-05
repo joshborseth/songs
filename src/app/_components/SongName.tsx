@@ -18,9 +18,13 @@ export const SongName = ({
   return (
     <div className="flex w-full items-center justify-start gap-3">
       {isPlaying ? (
-        <AudioLines size={18} strokeWidth={3} className="animate-pulse" />
+        <AudioLines
+          size={18}
+          strokeWidth={3}
+          className="h-4 w-4 animate-pulse lg:h-auto lg:w-auto"
+        />
       ) : (
-        <Music size={18} />
+        <Music size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
       )}
       {!truncateText && (
         <Image
@@ -34,8 +38,9 @@ export const SongName = ({
 
       <span
         className={cn(
-          truncateText ? "w-32 truncate text-left" : "max-w-[15rem]",
           isPlaying && "font-bold",
+          truncateText && "w-24 truncate",
+          "w-36 text-left text-xs lg:text-sm",
         )}
       >
         {song.name}

@@ -135,6 +135,12 @@
   }
 }
 
+@media (max-width: 1023px) {
+  .rhap_time {
+    font-size: 12px;
+  }
+}
+
 .rhap_additional-controls {
   display: none;
 }

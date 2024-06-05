@@ -1,18 +1,9 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "~/components/ui/table";
-
 import { PageWrapper } from "../_components/PageWrapper";
 
-import { Suspense } from "react";
-import { Loading } from "../_components/Loading";
 import { CreatePlaylist } from "../_components/CreatePlaylist";
 import { Component } from "./component";
+import { Suspense } from "react";
+import { Loading } from "../_components/Loading";
 
 export const metadata = {
   title: "Playlists",
@@ -24,30 +15,15 @@ export default function Page() {
   return (
     <div className="h-full w-full">
       <PageWrapper pageTitle="Playlists" actions={[<CreatePlaylist />]}>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Songs</TableHead>
-              <TableHead>Created At</TableHead>
-              <TableHead>Updated At</TableHead>
-              <TableHead>Edit</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="w-full">
-            <Suspense
-              fallback={
-                <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center">
-                    <Loading />
-                  </TableCell>
-                </TableRow>
-              }
-            >
-              <Component />
-            </Suspense>
-          </TableBody>
-        </Table>
+        <Suspense
+          fallback={
+            <div className="flex h-full w-full items-center justify-center">
+              <Loading />
+            </div>
+          }
+        >
+          <Component />
+        </Suspense>
       </PageWrapper>
     </div>
   );

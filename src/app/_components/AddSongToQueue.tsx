@@ -15,7 +15,7 @@ export const AddSongToQueue = ({
   return (
     <TooltipTrigger asChild>
       <Button size="icon" onClick={() => addSongToQueue(song)} variant="ghost">
-        <PlusSquare size={18} />
+        <PlusSquare size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
       </Button>
     </TooltipTrigger>
   );

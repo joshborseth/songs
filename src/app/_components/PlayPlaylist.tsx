@@ -25,10 +25,10 @@ export const PlayPlaylist = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="px-10">
+        <Button className="w-full px-10">
           <div className="-ml-3 flex items-center gap-2">
             <Play size={20} />
-            <span>Play Playlist</span>
+            <span>Queue Playlist</span>
           </div>
         </Button>
       </DialogTrigger>
@@ -44,7 +44,7 @@ export const PlayPlaylist = ({
           className="flex h-full flex-col gap-4"
         >
           <DialogHeader>
-            <DialogTitle>Play from Playlist</DialogTitle>
+            <DialogTitle>Queue Playlist</DialogTitle>
             <DialogDescription>
               This action will remove the songs currently in the queue and
               replace them with all of the songs from this playlist. Are you
