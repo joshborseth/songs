@@ -10,7 +10,7 @@ export const Paper = ({
   height?: "full" | "scroll";
 }) => {
   const classNames =
-    "max-h-[50vh] rounded-xl bg-white p-2 shadow-xl lg:max-h-[55vh] lg:p-4";
+    "max-h-[40vh] rounded-xl bg-white p-2 shadow-xl lg:max-h-[55vh] lg:p-4";
   return height === "full" ? (
     <section className={cn(classNames, "h-full")}>{children}</section>
   ) : (
