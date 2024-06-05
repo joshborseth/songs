@@ -1,12 +1,12 @@
 import { cn } from "~/lib/utils";
 import { Player } from "../Player";
 import { CreatePlaylist } from "../CreatePlaylist";
-import { List, ListMusic } from "lucide-react";
+
 import { UploadSong } from "../UploadSong";
 import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
 import { Separator } from "~/components/ui/separator";
-import { NavLink } from "./NavLink";
+import { NavLinks } from "./navigation";
 import { MobileNav } from "./MobileNav";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
@@ -19,23 +19,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
       >
         <h1 className="px-3 text-3xl font-bold">Music</h1>
         <Separator className="mt-4" />
-        <nav>
-          <ul className="py-1">
-            <NavLink
-              href="/playlists"
-              icon={<List size={18} />}
-              activeIcon={<List size={18} strokeWidth={3} />}
-              label="Playlists"
-            />
-
-            <NavLink
-              href="/songs"
-              icon={<ListMusic size={18} />}
-              activeIcon={<ListMusic size={18} strokeWidth={3} />}
-              label="Songs"
-            />
-          </ul>
-        </nav>
+        <NavLinks />
         <Separator className="mb-4" />
         <CreatePlaylist />
         <UploadSong />
