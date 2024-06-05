@@ -7,8 +7,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet";
-import { CreatePlaylist } from "../CreatePlaylist";
-import { UploadSong } from "../UploadSong";
+
 import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
 import { Separator } from "~/components/ui/separator";
