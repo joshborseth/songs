@@ -23,19 +23,15 @@ export const MobileNav = () => {
             <Menu size={22} color="white" />
           </Button>
         </SheetTrigger>
-        <SheetContent
-          className="flex h-screen w-60 flex-col gap-2 p-2"
-          side="left"
-        >
+        <SheetContent className="flex w-60 flex-col gap-2 p-2" side="left">
           <SheetTitle>
             <p className="px-3 text-2xl font-bold">Music</p>
           </SheetTitle>
           <Separator />
           <NavLinks />
 
-          <Separator className="mb-4" />
-          <CreatePlaylist />
-          <UploadSong />
+          <Separator />
+
           <div className="h-4" />
           <Queue />
           <UserInfo />
