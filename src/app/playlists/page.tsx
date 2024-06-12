@@ -4,12 +4,11 @@ import { CreatePlaylist } from "../_components/CreatePlaylist";
 import { Component } from "./component";
 import { Suspense } from "react";
 import { Loading } from "../_components/Loading";
+import { type Props, generateAppMetadata } from "~/server/metadata/generate";
+import { type Metadata } from "next";
 
-export const metadata = {
-  title: "Playlists",
-  description: "Organize your music into playlists.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
+export const generateMetadata = async (props: Props): Promise<Metadata> =>
+  await generateAppMetadata(props);
 
 export default function Page() {
   return (

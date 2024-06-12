@@ -1,7 +1,7 @@
 "use client";
 import { Home, List, ListMusic } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { type ReactNode } from "react";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
@@ -46,14 +46,16 @@ const NavLink = ({
   activeIcon: ReactNode;
 }) => {
   const pathname = usePathname();
-
+  const searchParams = useSearchParams();
   const isActive =
     (pathname === "/" && label === "Home") ||
     (pathname.includes(href) && href !== "/");
 
+  const hrefWithParams = `${href}?${searchParams.toString()}`;
+
   return (
     <li>
-      <Link href={href}>
+      <Link href={hrefWithParams}>
         <Button
           variant="ghost"
           className={cn(

@@ -6,9 +6,12 @@ import "./styles.css";
 import { useAppState } from "../stores/app";
 import Image from "next/image";
 import { useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 export const Player = () => {
   const { song, setSong, queue, volume, setVolume } = useAppState();
+  const router = useRouter();
+  const pathname = usePathname();
   //sorry
   // eslint-disable-next-line
   const audioPlayerRef = useRef<any>(null);
@@ -24,20 +27,30 @@ export const Player = () => {
 
   const handleNext = () => {
     if (song.id === lastSong.id) {
-      return setSong(firstSong);
+      setSong(firstSong);
+      router.refresh();
+      return;
     }
-
     setSong(queue[queue.indexOf(song) + 1]!);
+    router.refresh();
   };
 
   const handlePrev = () => {
     if (song.id === firstSong.id) {
-      return setSong(lastSong);
+      setSong(lastSong);
+      router.refresh();
+      return;
     }
     setSong(queue[queue.indexOf(song) - 1]!);
+    router.refresh();
   };
 
   const round = (num: number) => Math.round(num * 10) / 10;
+
+  if ("mediaSession" in navigator) {
+    navigator.mediaSession.setActionHandler("nexttrack", handleNext);
+    navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+  }
 
   return (
     <div className="flex w-full justify-end">
@@ -71,6 +84,7 @@ export const Player = () => {
               setVolume(changedVolume);
             }}
             volume={volume}
+            onPlay={() => router.replace(`${pathname}?currentSong=${song.id}`)}
             onClickNext={handleNext}
             onClickPrevious={handlePrev}
             showSkipControls={true}

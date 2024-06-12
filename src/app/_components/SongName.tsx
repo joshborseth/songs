@@ -1,6 +1,6 @@
 "use client";
 
-import { AudioLines, Music } from "lucide-react";
+import { AudioLines } from "lucide-react";
 import { type songs } from "~/server/db/schema";
 import { useAppState } from "../stores/app";
 import Image from "next/image";
@@ -23,9 +23,7 @@ export const SongName = ({
           strokeWidth={3}
           className="h-4 w-4 animate-pulse lg:h-auto lg:w-auto"
         />
-      ) : (
-        <Music size={18} className="h-4 w-4 lg:h-auto lg:w-auto" />
-      )}
+      ) : null}
       {!hideImage && (
         <Image
           src={song.thumbnailUrl}

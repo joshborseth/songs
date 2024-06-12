@@ -12,12 +12,6 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-export const metadata = {
-  title: "Music",
-  description: "by Josh Borseth",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
-
 export const dynamic = "force-dynamic";
 
 export default async function RootLayout({
