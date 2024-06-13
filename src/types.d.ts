@@ -1,4 +1,10 @@
-type Thumbnail = unknown;
+type Thumbnail = {
+  thumbnails: {
+    url: string;
+    width: number;
+    height: number;
+  }[];
+};
 
 type ShortBylineText = unknown;
 
