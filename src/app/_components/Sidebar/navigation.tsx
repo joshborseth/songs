@@ -1,5 +1,5 @@
 "use client";
-import { Home, List, ListMusic } from "lucide-react";
+import { Home, List, ListMusic, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { type ReactNode } from "react";
@@ -15,6 +15,12 @@ export const NavLinks = () => {
           icon={<Home size={18} />}
           activeIcon={<Home size={18} strokeWidth={3} />}
           label="Home"
+        />
+        <NavLink
+          href="/explore"
+          icon={<Search size={18} />}
+          activeIcon={<Search size={18} strokeWidth={3} />}
+          label="Explore"
         />
         <NavLink
           href="/playlists"

@@ -39,21 +39,26 @@ export const PageWrapper = ({
             )}
             <h1 className="pl-1 text-xl font-bold lg:text-2xl">{pageTitle}</h1>
           </div>
-          <div className="hidden gap-2 lg:flex">
-            {actions?.map((a) => <div className="w-32 lg:w-48">{a}</div>)}
-          </div>
-          <div className="block lg:hidden">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <CircleEllipsis />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="flex w-56 flex-col gap-2 p-2">
-                {actions?.map((a) => <div className="w-full">{a}</div>)}
-              </PopoverContent>
-            </Popover>
-          </div>
+          {actions?.length && (
+            <div className="hidden gap-2 lg:flex">
+              {actions?.map((a) => <div className="w-32 lg:w-48">{a}</div>)}
+            </div>
+          )}
+
+          {actions?.length && (
+            <div className="block lg:hidden">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <CircleEllipsis />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="flex w-56 flex-col gap-2 p-2">
+                  {actions?.map((a) => <div className="w-full">{a}</div>)}
+                </PopoverContent>
+              </Popover>
+            </div>
+          )}
         </div>
         <Paper height={height}>{children}</Paper>
       </div>
