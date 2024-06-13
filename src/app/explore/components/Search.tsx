@@ -29,7 +29,7 @@ export const Search = () => {
   return (
     <div className="p-4">
       <Input
-        placeholder="Search..."
+        placeholder="Search YouTube..."
         ref={inputRef}
         onChange={debouncedSearch}
       />
@@ -87,6 +87,7 @@ const ListItem = ({
         <span>{item.title}</span>
       </div>
       <Button
+        variant="outline"
         onClick={() => {
           uploadMutation.mutate({
             ytUrl: `https://www.youtube.com/watch?v=${item.id}`,
