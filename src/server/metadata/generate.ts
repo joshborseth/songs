@@ -21,7 +21,7 @@ export const generateAppMetadata = async (props: Props): Promise<Metadata> => {
     where: eq(songs.id, currentSong),
   });
 
-  const title = findSong?.name ? `Music App - ${findSong.name}` : "Music App";
+  const title = findSong?.name ?? "Music App";
 
   return {
     title,
