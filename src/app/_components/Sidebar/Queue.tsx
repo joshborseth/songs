@@ -20,7 +20,7 @@ export const Queue = () => {
 
   return (
     <>
-      <div className="h-1/4">
+      <div className="h-1/3">
         <div className="flex w-full items-center justify-between px-3">
           <h2 className="text-lg font-bold">Queue</h2>
           <Dialog>

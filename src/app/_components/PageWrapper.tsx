@@ -32,7 +32,7 @@ export const PageWrapper = ({
           <div className="flex items-center gap-2">
             {backButton && (
               <Link href={backButton.href}>
-                <Button variant="link">
+                <Button variant="ghost">
                   <ArrowLeft />
                 </Button>
               </Link>
