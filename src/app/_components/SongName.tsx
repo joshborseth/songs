@@ -16,7 +16,7 @@ export const SongName = ({
   const currentSong = useAppState((s) => s.song);
   const isPlaying = currentSong?.id === song.id;
   return (
-    <div className="flex w-full min-w-0 items-center justify-start gap-3">
+    <div className="flex w-full min-w-0 max-w-lg items-center justify-start gap-3">
       {isPlaying ? (
         <AudioLines
           size={18}

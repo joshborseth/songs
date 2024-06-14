@@ -4,6 +4,7 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 
 import {
@@ -16,10 +17,11 @@ import {
 } from "~/components/ui/table";
 import { columns } from "./columns";
 
-import { type FC, Fragment } from "react";
+import { type FC, Fragment, useState } from "react";
 import { type songs } from "~/server/db/schema";
 import { type ActionProps } from "./actions";
 import { SongName } from "../SongName";
+import { Input } from "~/components/ui/input";
 
 export const SongsTable = ({
   data,
@@ -28,14 +30,27 @@ export const SongsTable = ({
   data: (typeof songs.$inferSelect)[];
   Actions: FC<ActionProps>;
 }) => {
+  const [filtering, setFiltering] = useState("");
+
   const table = useReactTable({
     data,
     columns: columns({ Actions }),
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      globalFilter: filtering,
+    },
+    onGlobalFilterChange: setFiltering,
   });
   return (
     <>
       <div className="hidden rounded-md lg:block">
+        <div className="p-2">
+          <Input
+            placeholder="Search..."
+            onChange={(e) => setFiltering(e.target.value)}
+          />
+        </div>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

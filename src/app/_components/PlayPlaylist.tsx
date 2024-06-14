@@ -24,8 +24,8 @@ export const PlayPlaylist = ({
   const { bulkAddSongsToQueue, clearQueue, setSong } = useAppState();
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="w-full px-10">
+      <DialogTrigger asChild disabled={!songsFromPlaylist.length}>
+        <Button disabled={!songsFromPlaylist.length} className="w-full px-10">
           <div className="-ml-3 flex items-center gap-2">
             <Play size={20} />
             <span>Queue Playlist</span>

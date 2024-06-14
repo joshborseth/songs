@@ -1,8 +1,5 @@
 import { cn } from "~/lib/utils";
 import { Player } from "../Player";
-import { CreatePlaylist } from "../CreatePlaylist";
-
-import { UploadSong } from "../UploadSong";
 import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
 import { Separator } from "~/components/ui/separator";
@@ -21,9 +18,6 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
         <Separator className="mt-4" />
         <NavLinks />
         <Separator className="mb-4" />
-        <CreatePlaylist />
-        <UploadSong />
-        <div className="h-4" />
         <Queue />
         <UserInfo />
       </div>
