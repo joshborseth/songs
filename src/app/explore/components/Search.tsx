@@ -21,8 +21,7 @@ export const Search = () => {
       delay: 500,
     },
     () => {
-      if (!inputRef.current?.value?.length) return;
-      searchMutation.mutate({ keyword: inputRef.current.value });
+      searchMutation.mutate({ keyword: inputRef.current?.value ?? "" });
     },
   );
 
