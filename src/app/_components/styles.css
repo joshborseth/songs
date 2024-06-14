@@ -67,7 +67,7 @@
 }
 
 .rhap_time {
-  color: rgb(31 41 55);
+  color: black;
   font-weight: 700;
   font-size: 14px;
   user-select: none;
@@ -88,7 +88,7 @@
   height: 100%;
   position: absolute;
   z-index: 2;
-  background-color: rgb(31 41 55);
+  background-color: black;
   border-radius: 2px;
 }
 
@@ -109,7 +109,7 @@
   position: absolute;
   z-index: 3;
   background: white;
-  border: solid 1px rgb(31 41 55);
+  border: solid 1px black;
   border-radius: 50px;
   width: 15px;
   height: 15px;
@@ -157,7 +157,7 @@
 
 .rhap_main-controls-button {
   margin: 0 3px;
-  color: rgb(31 41 55);
+  color: black;
   font-size: 30px;
   width: 30px;
   height: 30px;
@@ -176,7 +176,7 @@
   font-size: 26px;
   width: 26px;
   height: 26px;
-  color: rgb(31 41 55);
+  color: black;
   margin-right: 6px;
 }
 .rhap_play-pause-button {
@@ -222,7 +222,7 @@
   left: 0;
   top: -4px;
   background: white;
-  border: solid 1px rgb(31 41 55);
+  border: solid 1px black;
   z-index: 3;
   opacity: 1;
   border-radius: 50px;
@@ -236,7 +236,7 @@
   height: 100%;
   position: absolute;
   z-index: 2;
-  background-color: rgb(31 41 55);
+  background-color: black;
   border-radius: 2px;
 }
 

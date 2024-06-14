@@ -15,7 +15,7 @@ import { NavLinks } from "./navigation";
 
 export const MobileNav = () => {
   return (
-    <nav className="flex h-20 w-full items-center justify-end bg-slate-900 text-white lg:hidden">
+    <nav className="flex h-20 w-full items-center justify-end bg-black text-white lg:hidden">
       <Sheet>
         <SheetTrigger asChild>
           <Button size="icon" variant="default">
