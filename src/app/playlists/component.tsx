@@ -83,36 +83,40 @@ export async function Component() {
       </Table>
       <ScrollArea className="block lg:hidden">
         <div className="flex flex-col">
-          {playlists.map((p) => {
-            return (
-              <div
-                key={p.id}
-                className="flex items-center justify-between px-2 text-xs"
-              >
-                <p>{p.name}</p>
-                <div className="flex gap-2">
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href={`/playlists/${p.id}`}>
-                          <Button size="icon" variant="ghost">
-                            <Edit
-                              size={18}
-                              className="h-4 w-4 lg:h-auto lg:w-auto"
-                            />
-                          </Button>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Edit Playlist</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <DeletePlaylist playlistId={p.id} />
-                  </TooltipProvider>
+          {playlists.length ? (
+            playlists.map((p) => {
+              return (
+                <div
+                  key={p.id}
+                  className="flex items-center justify-between px-2 text-xs"
+                >
+                  <p>{p.name}</p>
+                  <div className="flex gap-2">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Link href={`/playlists/${p.id}`}>
+                            <Button size="icon" variant="ghost">
+                              <Edit
+                                size={18}
+                                className="h-4 w-4 lg:h-auto lg:w-auto"
+                              />
+                            </Button>
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Edit Playlist</p>
+                        </TooltipContent>
+                      </Tooltip>
+                      <DeletePlaylist playlistId={p.id} />
+                    </TooltipProvider>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <span className="text-center text-xs">No results.</span>
+          )}
         </div>
       </ScrollArea>
     </>
