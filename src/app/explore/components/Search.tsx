@@ -7,7 +7,6 @@ import { useRef } from "react";
 import { Loading } from "~/app/_components/Loading";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { useToast } from "~/components/ui/use-toast";
 import { api } from "~/trpc/react";
 import { type RouterOutputs } from "~/trpc/shared";
@@ -26,7 +25,7 @@ export const Search = () => {
   );
 
   return (
-    <div className="p-4">
+    <div className="p-2 lg:p-4">
       <Input
         placeholder="Search YouTube..."
         ref={inputRef}
@@ -34,13 +33,13 @@ export const Search = () => {
       />
       {searchMutation.isLoading && <Loading className="py-3" />}
       {searchMutation.data && (
-        <ScrollArea className="flex flex-col py-3">
+        <ul className="flex flex-col py-3">
           {searchMutation.data.items
             .filter((item) => item.type === "video")
             .map((item) => {
               return <ListItem item={item} />;
             })}
-        </ScrollArea>
+        </ul>
       )}
     </div>
   );
@@ -72,7 +71,10 @@ const ListItem = ({
     },
   });
   return (
-    <li key={item.id} className="flex items-center justify-between gap-4 py-3">
+    <li
+      key={item.id}
+      className="grid grid-cols-1 items-center justify-between gap-4 py-3 sm:flex"
+    >
       <div className="flex items-center gap-4">
         {item.thumbnail.thumbnails?.[0] && (
           <Image
@@ -87,6 +89,7 @@ const ListItem = ({
       </div>
       <Button
         variant="outline"
+        className="max-w-xs"
         onClick={() => {
           uploadMutation.mutate({
             ytUrl: `https://www.youtube.com/watch?v=${item.id}`,
