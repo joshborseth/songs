@@ -52,6 +52,8 @@ export const Player = () => {
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
   }
 
+  const preloadedSongs = queue.map((s) => new Audio(s.s3Url));
+
   return (
     <div className="flex w-full justify-end">
       <div className="flex w-full flex-col items-center bg-white py-4">
