@@ -7,6 +7,7 @@ import { useAppState } from "../stores/app";
 import Image from "next/image";
 import { useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import type H5AudioPlayer from "react-h5-audio-player";
 
 export const Player = () => {
   const { song, setSong, queue, volume, setVolume } = useAppState();
@@ -14,7 +15,7 @@ export const Player = () => {
   const pathname = usePathname();
   //sorry
   // eslint-disable-next-line
-  const audioPlayerRef = useRef<any>(null);
+  const audioPlayerRef = useRef<H5AudioPlayer>(null);
 
   const prevVolume = useRef<number | null>(null);
 
@@ -52,8 +53,6 @@ export const Player = () => {
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
   }
 
-  const preloadedSongs = queue.map((s) => new Audio(s.s3Url));
-
   return (
     <div className="flex w-full justify-end">
       <div className="flex w-full flex-col items-center bg-white py-4">
@@ -73,8 +72,8 @@ export const Player = () => {
             </span>
           </div>
           <AudioPlayer
-            src={song.s3Url}
             autoPlay={false}
+            src={song.s3Url}
             autoPlayAfterSrcChange={true}
             onVolumeChange={() => {
               const changedVolume = round(
