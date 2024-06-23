@@ -13,8 +13,6 @@ export const Player = () => {
   const { song, setSong, queue, volume, setVolume } = useAppState();
   const router = useRouter();
   const pathname = usePathname();
-  //sorry
-  // eslint-disable-next-line
   const audioPlayerRef = useRef<H5AudioPlayer>(null);
 
   const prevVolume = useRef<number | null>(null);
