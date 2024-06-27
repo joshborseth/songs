@@ -11,12 +11,13 @@ export const upload = protectedProcedure
   .input(z.object({ ytUrl: z.string() }))
   .mutation(async ({ ctx, input }) => {
     const audioReadableStream = ytdl(input.ytUrl, {
-      filter: (format) => format.audioCodec === "mp4a.40.2",
+      filter: "audioonly",
+      quality: "highestaudio",
     });
 
     const songInfo = await ytdl.getInfo(input.ytUrl);
 
-    const songName = `${randomUUID()}-${songInfo.videoDetails.title}.mp4`;
+    const songName = `${randomUUID()}-${songInfo.videoDetails.title}.webm`;
 
     const upload = new Upload({
       client: new S3({
@@ -30,7 +31,7 @@ export const upload = protectedProcedure
         Bucket: env.S3_BUCKET,
         Key: songName,
         Body: audioReadableStream,
-        ContentType: "audio/mp4",
+        ContentType: "audio/webm",
       },
     });
 

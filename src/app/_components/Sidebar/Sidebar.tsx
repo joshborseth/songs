@@ -1,10 +1,10 @@
 import { cn } from "~/lib/utils";
-import { Player } from "../Player";
 import { Queue } from "./Queue";
 import { UserInfo } from "./UserInfo";
 import { Separator } from "~/components/ui/separator";
 import { NavLinks } from "./navigation";
 import { MobileNav } from "./MobileNav";
+import { PlayerV2 } from "../PlayerV2";
 
 export async function Sidebar({ children }: { children: React.ReactNode }) {
   return (
@@ -25,7 +25,7 @@ export async function Sidebar({ children }: { children: React.ReactNode }) {
         <MobileNav />
         <div className="block h-4 lg:hidden" />
         {children}
-        <Player />
+        <PlayerV2 />
       </div>
     </div>
   );
