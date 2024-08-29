@@ -11,6 +11,7 @@ export const songs = sqliteTable("songs", {
   thumbnailUrl: text("thumbnailUrl", { length: 256 }).notNull(),
   s3Url: text("s3Url", { length: 256 }).notNull(),
   userId: text("userId", { length: 256 }).notNull(),
+  ytId: text("ytId", { length: 256 }).notNull(),
 });
 
 export const playlists = sqliteTable("playlists", {

@@ -13,7 +13,6 @@ import { type RouterOutputs } from "~/trpc/shared";
 
 export const Search = () => {
   const searchMutation = api.explore.searchByKeyword.useMutation();
-
   const inputRef = useRef<HTMLInputElement>(null);
   const debouncedSearch = debounce(
     {

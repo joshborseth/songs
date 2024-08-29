@@ -7,14 +7,13 @@ import { useAppState } from "../stores/app";
 import Image from "next/image";
 import { useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import type H5AudioPlayer from "react-h5-audio-player";
 
 export const Player = () => {
   const { song, setSong, queue, volume, setVolume } = useAppState();
   const router = useRouter();
   const pathname = usePathname();
-  //sorry
-  // eslint-disable-next-line
-  const audioPlayerRef = useRef<any>(null);
+  const audioPlayerRef = useRef<H5AudioPlayer>(null);
 
   const prevVolume = useRef<number | null>(null);
 
@@ -50,6 +49,14 @@ export const Player = () => {
   if ("mediaSession" in navigator) {
     navigator.mediaSession.setActionHandler("nexttrack", handleNext);
     navigator.mediaSession.setActionHandler("previoustrack", handlePrev);
+    navigator.mediaSession.setActionHandler("play", () => {
+      if (!audioPlayerRef.current?.audio?.current) return;
+      void audioPlayerRef.current.audio.current.play();
+    });
+    navigator.mediaSession.setActionHandler("pause", () => {
+      if (!audioPlayerRef.current?.audio?.current) return;
+      void audioPlayerRef.current.audio.current.pause();
+    });
   }
 
   return (
@@ -66,7 +73,6 @@ export const Player = () => {
               className="h-16 w-16 rounded-xl object-cover p-2 lg:h-20 lg:w-20"
             />
             <span className="mx-auto max-w-[12rem] truncate text-left text-base font-bold lg:max-w-none lg:text-center lg:text-lg">
-              {/* maybe add some sort of auto scroll title here animation style, check aceternity to see if they have something */}
               {song.name}
             </span>
           </div>

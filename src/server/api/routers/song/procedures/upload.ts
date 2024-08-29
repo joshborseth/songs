@@ -6,6 +6,8 @@ import { S3 } from "@aws-sdk/client-s3";
 import { env } from "~/env";
 import { randomUUID } from "crypto";
 import { Upload } from "@aws-sdk/lib-storage";
+import { eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const upload = protectedProcedure
   .input(z.object({ ytUrl: z.string() }))
@@ -15,6 +17,18 @@ export const upload = protectedProcedure
     });
 
     const songInfo = await ytdl.getInfo(input.ytUrl);
+    const ytId = songInfo.videoDetails.videoId;
+
+    const songInDb = await ctx.db.query.songs.findFirst({
+      where: eq(songs.ytId, ytId),
+    });
+
+    if (songInDb) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Song already exists",
+      });
+    }
 
     const songName = `${randomUUID()}-${songInfo.videoDetails.title}.mp4`;
 
@@ -43,5 +57,6 @@ export const upload = protectedProcedure
       }.amazonaws.com/${encodeURI(songName)}`,
       thumbnailUrl: songInfo.videoDetails.thumbnails[0]?.url ?? "",
       userId: ctx.auth.userId,
+      ytId,
     });
   });
